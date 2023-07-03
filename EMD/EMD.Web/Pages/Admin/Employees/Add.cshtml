@@ -1,0 +1,56 @@
+﻿@page
+@model EMD.Web.Pages.Admin.Employees.AddEmployeesModel
+@{
+}
+
+<div class="container">
+    <h2 class="mt-4 mb-3">Add Employee</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="Name" class="form-label">First Name</label>
+                        <input type="text" class="form-control" placeholder="Enter first name" id="Name" asp-for="AddEmployeeRequset.Name" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="Surname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="Surname" placeholder="Enter last name" asp-for="AddEmployeeRequset.Surname" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Email" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="Email" placeholder="Enter email" asp-for="AddEmployeeRequset.Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="Phone" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="Phone" placeholder="Enter phone number" asp-for="AddEmployeeRequset.Phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="Address" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="Address" placeholder="Enter address" asp-for="AddEmployeeRequset.Address" required>
+                </div>
+                <div class="form-group">
+                    <label for="Department" class="form-label">Department</label>
+                    <select class="form-control" id="Department" asp-for="AddEmployeeRequset.Department">
+                        <option value="">Select department</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Finance">Finance</option>
+                        <option value="HR">Human Resources</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="BirthDate" class="form-label" asp-for="AddEmployeeRequset.BirthDate">Birth Date</label>
+                    <input type="date" class="form-control" id="BirthDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="Description" class="form-label">Description</label>
+                    <textarea class="form-control" id="Description" rows="3" placeholder="Enter description" asp-for="AddEmployeeRequset.Description"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Add Employee</button>
+            </form>
+        </div>
+    </div>
+</div>
