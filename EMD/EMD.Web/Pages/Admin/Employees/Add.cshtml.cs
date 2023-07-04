@@ -24,7 +24,7 @@ namespace EMD.Web.Pages.Admin.Employees
 
         }
 
-        public void OnPost()
+        public async Task<IActionResult> OnPost()
         {
             var employee = new Emd()
             {
@@ -37,8 +37,10 @@ namespace EMD.Web.Pages.Admin.Employees
                 BirthDate = AddEmployeeRequset.BirthDate,
                 Description = AddEmployeeRequset.Description,
             };
-            _eMDDbContext.Emds.Add(employee);
-            _eMDDbContext.SaveChanges();
+            await _eMDDbContext.Emds.AddAsync(employee);
+            await _eMDDbContext.SaveChangesAsync();
+
+            return RedirectToPage("/Admin/Employees/List");
         }
     }
 }

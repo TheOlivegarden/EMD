@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/EMD.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/custom.css" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="#">Employee Management Dashboard</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -29,7 +29,10 @@
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="navbarDrowdownAdmin">Admin</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDrowdownAdmin">
                                 <li>
-                                    <a class="dropdown-item" href="/Admin/Employees/Add">Add New Employee</a>
+                                    <a class="dropdown-item navbar-button" href="/Admin/Employees/Add">Add New Employee</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item navbar-button" href="/Admin/Employees/List">View All Employees</a>
                                 </li>
                             </ul>
                         </li>
@@ -49,7 +52,7 @@
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)

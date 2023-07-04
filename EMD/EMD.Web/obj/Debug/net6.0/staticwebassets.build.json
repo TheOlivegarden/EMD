@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HYNQg6G3lnpINwXzYN9+VdBWZZDB7Wy+y4ZVAKDyMxc=",
+  "Hash": "fYwHln/DYD3RQza086f7JQUms+IPBaQU5JDCCtH4Pf8=",
   "Source": "EMD.Web",
   "BasePath": "_content/EMD.Web",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\EMD.Web.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\css\\custom.css",
+      "SourceId": "EMD.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\",
+      "BasePath": "_content/EMD.Web",
+      "RelativePath": "css/custom.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\custom.css"
     },
     {
       "Identity": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\css\\site.css",

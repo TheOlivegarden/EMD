@@ -1,0 +1,44 @@
+﻿@page
+@model EMD.Web.Pages.Admin.Employees.ListModel
+@{
+}
+
+@if (Model.EmdList != null)
+{
+    <div class="container">
+        <h2 class="mt-4 mb-3">Employee List</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Birth Date</th>
+                    <th>Department</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model.EmdList)
+                {
+                    <tr>
+                        <td>@employee.Name @employee.Surname</td>
+                        <td>@employee.Email</td>
+                        <td>@employee.BirthDate.ToShortDateString()</td>
+                        <td>@employee.Department</td>
+                        <td><a href="/Admin/Employees/View/@employee.Id">View</a></td>
+                        <td><a href="/Admin/Employees/Edit/@employee.Id">Edit</a></td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else 
+{
+    <div class="container">
+        <p>No employees found!</p>
+    </div>
+}
