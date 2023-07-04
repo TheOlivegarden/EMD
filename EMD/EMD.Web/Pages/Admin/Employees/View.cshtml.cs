@@ -1,8 +1,7 @@
-using EMD.Web.Data;
 using EMD.Web.Models.Domain;
+using EMD.Web.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
@@ -10,18 +9,18 @@ namespace EMD.Web.Pages.Admin.Employees
 {
     public class ViewModel : PageModel
     {
-        private readonly EMDDbContext _eMDDbContext;
+        private readonly IEmployeeRepository _employeeRepository;
 
         public Emd Employee { get; set; }
 
-        public ViewModel(EMDDbContext eMDDbContext)
+        public ViewModel(IEmployeeRepository employeeRepository)
         {
-            _eMDDbContext = eMDDbContext;
+            _employeeRepository = employeeRepository;
         }
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            Employee = await _eMDDbContext.Emds.FindAsync(id);
+            Employee = await _employeeRepository.GetAsync(id);
 
             if (Employee == null)
             {

@@ -3,7 +3,38 @@
 @{
 }
 
-@if (Model.EmdList != null)
+
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    @Model.SuccessMessage
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bi bi-x-circle-fill me-2"></i>
+                    @Model.ErrorMessage
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.EmdList != null && Model.EmdList.Any())
 {
     <div class="container">
         <h2 class="mt-4 mb-3">Employee List</h2>
@@ -29,16 +60,34 @@
                         <td>@employee.Department</td>
                         <td><a href="/Admin/Employees/View/@employee.Id">View</a></td>
                         <td><a href="/Admin/Employees/Edit/@employee.Id">Edit</a></td>
-
                     </tr>
                 }
             </tbody>
         </table>
     </div>
 }
-else 
+else
 {
     <div class="container">
         <p>No employees found!</p>
     </div>
 }
+
+<!-- JavaScript to show and hide the toast notifications -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var successToast = document.querySelector('.toast.bg-success');
+        var errorToast = document.querySelector('.toast.bg-danger');
+
+        var successToastInstance = new bootstrap.Toast(successToast);
+        var errorToastInstance = new bootstrap.Toast(errorToast);
+
+        if (successToast) {
+            successToastInstance.show();
+        }
+
+        if (errorToast) {
+            errorToastInstance.show();
+        }
+    });
+</script>

@@ -1,4 +1,5 @@
 using EMD.Web.Data;
+using EMD.Web.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<EMDDbContext>(options => 
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("EmdDbConnectionString")));
+
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
 var app = builder.Build();
 

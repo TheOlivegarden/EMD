@@ -57,19 +57,11 @@
                         <textarea class="form-control" id="Description" rows="3" asp-for="Employee.Description"></textarea>
                     </div>
                     <div class="mb-3 d-flex justify-content-between">
-                        <button type="submit" class="btn btn-primary" asp-page-handler="Update">Save Changes</button>
-
-                        <button type="submit" class="btn btn-danger" asp-page-handler="Delete">Delete</button>
+                        <button type="submit" class="btn btn-primary mt-3" asp-page-handler="Update">Save Changes</button>
+                        <button type="submit" class="btn btn-danger mt-3" asp-page-handler="Delete">Delete</button>
                     </div>
-
                 </form>
             </div>
         </div>
-    </div>
-}
-else 
-{
-    <div class="container">
-        <p>Employee not found!</p>
     </div>
 }

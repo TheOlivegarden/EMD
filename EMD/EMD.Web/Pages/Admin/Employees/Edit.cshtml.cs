@@ -1,5 +1,6 @@
 using EMD.Web.Data;
 using EMD.Web.Models.Domain;
+using EMD.Web.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -10,53 +11,45 @@ namespace EMD.Web.Pages.Admin.Employees
 {
     public class EditModel : PageModel
     {
-        private readonly EMDDbContext _eMDDbContext;
+        private readonly IEmployeeRepository _employeeRepository;
 
         [BindProperty]
         public Emd Employee { get; set; }
 
-        public EditModel(EMDDbContext eMDDbContext)
+        public EditModel(IEmployeeRepository employeeRepository)
         {
-            _eMDDbContext = eMDDbContext;
+            _employeeRepository = employeeRepository;
         }
 
         public async Task OnGet(Guid id)
         {
-            Employee =  await _eMDDbContext.Emds.FindAsync(id);
-        }
-        public async Task<IActionResult> OnPostUpdate() 
-        {
-            var existingEmployee = await _eMDDbContext.Emds.FindAsync(Employee.Id);
-
-            if(existingEmployee != null)
-            {
-                existingEmployee.Name = Employee.Name;
-                existingEmployee.Surname = Employee.Surname;
-                existingEmployee.Email = Employee.Email;
-                existingEmployee.Phone = Employee.Phone;
-                existingEmployee.Address = Employee.Address;
-                existingEmployee.Department = Employee.Department;
-                existingEmployee.BirthDate = Employee.BirthDate;
-                existingEmployee.Description = Employee.Description;
-            }
-
-            await _eMDDbContext.SaveChangesAsync();
-            return RedirectToPage("/Admin/Employees/List");
-
+            Employee = await _employeeRepository.GetAsync(id);
         }
 
-        public async Task<IActionResult> OnPostDelete() 
+        public async Task<IActionResult> OnPostUpdate()
         {
-            var existingEmployee = await _eMDDbContext.Emds.FindAsync(Employee.Id);
-            
-            if(existingEmployee != null)
-            {
-                _eMDDbContext.Emds.Remove(existingEmployee);
-                await _eMDDbContext.SaveChangesAsync();
+            var updatedEmployee = await _employeeRepository.UpdateAsync(Employee);
 
+            if (updatedEmployee != null)
+            {
+                TempData["SuccessMessage"] = "Changes were successfully saved.";
                 return RedirectToPage("/Admin/Employees/List");
             }
 
+            TempData["ErrorMessage"] = "Failed to update employee details.";
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostDelete()
+        {
+            var deleted = await _employeeRepository.DeleteAsync(Employee.Id);
+            if (deleted)
+            {
+                TempData["SuccessMessage"] = "Employee was successfully deleted.";
+                return RedirectToPage("/Admin/Employees/List");
+            }
+
+            TempData["ErrorMessage"] = "Failed to delete employee.";
             return Page();
         }
     }
