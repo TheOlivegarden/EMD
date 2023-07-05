@@ -1,6 +1,9 @@
 ﻿using EMD.Web.Data;
 using EMD.Web.Models.Domain;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EMD.Web.Repositories
 {
@@ -13,18 +16,18 @@ namespace EMD.Web.Repositories
             _eMDDbContext = eMDDbContext;
         }
 
-        public async Task<Emd> AddAsync(Emd Employee)
+        public async Task<Emd> AddAsync(Emd employee)
         {
-            await _eMDDbContext.Emds.AddAsync(Employee);
+            await _eMDDbContext.Emds.AddAsync(employee);
             await _eMDDbContext.SaveChangesAsync();
 
-            return Employee;
+            return employee;
         }
 
         public async Task<bool> DeleteAsync(Guid id)
         {
             var existingEmployee = await _eMDDbContext.Emds.FindAsync(id);
-    
+
             if (existingEmployee != null)
             {
                 _eMDDbContext.Emds.Remove(existingEmployee);
@@ -45,25 +48,32 @@ namespace EMD.Web.Repositories
             return await _eMDDbContext.Emds.FindAsync(id);
         }
 
-        public async Task<Emd> UpdateAsync(Emd Employee)
+        public async Task<Emd> UpdateAsync(Emd employee)
         {
-            var existingEmployee = await _eMDDbContext.Emds.FindAsync(Employee.Id);
+            var existingEmployee = await _eMDDbContext.Emds.FindAsync(employee.Id);
 
             if (existingEmployee != null)
             {
-                existingEmployee.Name = Employee.Name;
-                existingEmployee.Surname = Employee.Surname;
-                existingEmployee.Email = Employee.Email;
-                existingEmployee.Phone = Employee.Phone;
-                existingEmployee.Address = Employee.Address;
-                existingEmployee.Department = Employee.Department;
-                existingEmployee.BirthDate = Employee.BirthDate;
-                existingEmployee.Description = Employee.Description;
+                existingEmployee.Name = employee.Name;
+                existingEmployee.Surname = employee.Surname;
+                existingEmployee.Email = employee.Email;
+                existingEmployee.Phone = employee.Phone;
+                existingEmployee.Address = employee.Address;
+                existingEmployee.Department = employee.Department;
+                existingEmployee.BirthDate = employee.BirthDate;
+                existingEmployee.Description = employee.Description;
             }
 
             await _eMDDbContext.SaveChangesAsync();
 
             return existingEmployee;
+        }
+
+        public async Task<IEnumerable<Emd>> SearchAsync(string searchTerm)
+        {
+            return await _eMDDbContext.Emds
+                .Where(e => e.Name.Contains(searchTerm) || e.Email.Contains(searchTerm) || e.Department.Contains(searchTerm))
+                .ToListAsync();
         }
     }
 }

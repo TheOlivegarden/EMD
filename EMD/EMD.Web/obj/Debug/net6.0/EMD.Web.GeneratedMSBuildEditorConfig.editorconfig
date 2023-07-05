@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\PC\Desktop\EMD\EMD\EMD.Web
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/PC/Desktop/EMD/EMD/EMD.Web/Pages/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/PC/Desktop/EMD/EMD/EMD.Web/Pages/Admin/Employees/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cRW1wbG95ZWVzXEFkZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

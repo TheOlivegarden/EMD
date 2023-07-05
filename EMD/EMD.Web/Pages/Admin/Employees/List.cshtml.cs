@@ -14,6 +14,9 @@ namespace EMD.Web.Pages.Admin.Employees
     {
         private readonly IEmployeeRepository _employeeRepository;
 
+    [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; }
+
         public List<Emd> EmdList { get; set; }
 
         [TempData]
@@ -26,10 +29,16 @@ namespace EMD.Web.Pages.Admin.Employees
         {
             _employeeRepository = employeeRepository;
         }
-
         public async Task OnGet()
         {
-            EmdList = (await _employeeRepository.GetAllAsync())?.ToList();
+            if (!string.IsNullOrEmpty(SearchTerm))
+            {
+                EmdList = (await _employeeRepository.SearchAsync(SearchTerm))?.ToList();
+            }
+            else
+            {
+                EmdList = (await _employeeRepository.GetAllAsync())?.ToList();
+            }
         }
     }
 }
