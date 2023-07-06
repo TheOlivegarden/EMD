@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,25 +22,50 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-black" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="navbarDrowdownAdmin">Admin</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDrowdownAdmin">
-                                <li>
-                                    <a class="dropdown-item navbar-button text-dark" href="/Admin/Employees/Add">Add New Employee</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item navbar-button text-dark" href="/Admin/Employees/List">View All Employees</a>
-                                </li>
-                            </ul>
-                        </li>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <div class="nav-link text-primary">
+                                    Welcome, @User?.Identity?.Name
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="navbarDrowdownAdmin">Management</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDrowdownAdmin">
+                                    <li>
+                                        <a class="dropdown-item navbar-button text-dark" href="/Admin/Employees/Add">Add New Employee</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item navbar-button text-dark" href="/Admin/Employees/List">View All Employees</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        
+
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a href="/Logout" class="nav-link text-primary">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a href="/Register" class="nav-link text-primary">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Login" class="nav-link text-primary">Login</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-        <main role="main" class="pb-3">
-            @RenderBody();
-        </main>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
 
     <footer class="border-top footer text-muted">
         <div class="container">

@@ -5,7 +5,7 @@ namespace EMD.Web.Data
 {
     public class EMDDbContext : DbContext
     {
-        public EMDDbContext(DbContextOptions options) : base(options)
+        public EMDDbContext(DbContextOptions<EMDDbContext> options) : base(options)
         {
         }
         public DbSet<Emd> Emds { get; set; }

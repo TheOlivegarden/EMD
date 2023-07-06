@@ -1,5 +1,6 @@
 using EMD.Web.Data;
 using EMD.Web.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,23 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<EMDDbContext>(options => 
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("EmdDbConnectionString")));
+
+builder.Services.AddDbContext<AuthDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("AuthDbConnectionString")));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AuthDbContext>();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequiredUniqueChars = 1;
+});
 
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
@@ -28,6 +46,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

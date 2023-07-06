@@ -14,7 +14,7 @@ namespace EMD.Web.Pages.Admin.Employees
     {
         private readonly IEmployeeRepository _employeeRepository;
 
-    [BindProperty(SupportsGet = true)]
+        [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
 
         public List<Emd> EmdList { get; set; }

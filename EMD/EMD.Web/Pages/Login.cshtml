@@ -1,0 +1,66 @@
+﻿@page
+@model EMD.Web.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container mx-auto">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-6">
+            <h1 class="mb-3 mt-3 h3">Login</h1>
+
+            @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+            {
+                <div class="toast-container position-fixed top-0 end-0 p-3">
+                    <div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                @Model.SuccessMessage
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <form method="post">
+
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control" asp-for="LoginViewModel.Username" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" asp-for="LoginViewModel.Password" />
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+
+            </form>
+
+            @if (TempData.ContainsKey("ErrorMessage"))
+            {
+                <div class="alert alert-danger" role="alert">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var successToast = document.querySelector('.toast.bg-success');
+
+        var successToastInstance = new bootstrap.Toast(successToast);
+
+        if (successToast) {
+            successToastInstance.show();
+        }
+    });
+</script>
