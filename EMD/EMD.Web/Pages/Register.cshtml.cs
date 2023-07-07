@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using EMD.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +12,6 @@ namespace EMD.Web.Pages
         [BindProperty]
         public Register RegisterViewModel { get; set; }
 
-        [TempData]
-        public string SuccessMessage { get; set; }
-
-        [TempData]
-        public string ErrorMessage { get; set; }
-
         public RegisterModel(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
@@ -32,8 +25,15 @@ namespace EMD.Web.Pages
         {
             if (ModelState.IsValid)
             {
-                var existingUser = await _userManager.FindByEmailAsync(RegisterViewModel.Email);
+                var existingUser = await _userManager.FindByNameAsync(RegisterViewModel.Username);
                 if (existingUser != null)
+                {
+                    TempData["ErrorMessage"] = "Username already exists. Please choose a different username.";
+                    return Page();
+                }
+
+                var existingEmail = await _userManager.FindByEmailAsync(RegisterViewModel.Email);
+                if (existingEmail != null)
                 {
                     TempData["ErrorMessage"] = "Email already exists. Please choose a different email.";
                     return Page();
@@ -49,7 +49,7 @@ namespace EMD.Web.Pages
 
                 if (identityResult.Succeeded)
                 {
-                    SuccessMessage = "User registered successfully.";
+                    TempData["SuccessMessage"] = "User registered successfully.";
                     return RedirectToPage("/Login");
                 }
                 else

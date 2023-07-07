@@ -1,15 +1,11 @@
-using EMD.Web.Data;
 using EMD.Web.Models.Domain;
 using EMD.Web.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EMD.Web.Pages.Admin.Employees
 {
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class ListModel : PageModel
     {
         private readonly IEmployeeRepository _employeeRepository;
@@ -25,11 +21,17 @@ namespace EMD.Web.Pages.Admin.Employees
         [TempData]
         public string ErrorMessage { get; set; }
 
+        public bool ShowNotification { get; set; }
+
+        public bool IsPostBack => HttpContext.Request.Method.Equals("POST", StringComparison.OrdinalIgnoreCase);
+        
         public ListModel(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
         }
-        public async Task OnGet()
+
+
+        public async Task<IActionResult> OnGet()
         {
             if (!string.IsNullOrEmpty(SearchTerm))
             {
@@ -39,6 +41,17 @@ namespace EMD.Web.Pages.Admin.Employees
             {
                 EmdList = (await _employeeRepository.GetAllAsync())?.ToList();
             }
+
+            if (!IsPostBack)
+            {
+                ShowNotification = !string.IsNullOrEmpty(SuccessMessage) || !string.IsNullOrEmpty(ErrorMessage);
+            }
+            else
+            {
+                ShowNotification = false;
+            }
+
+            return Page();
         }
     }
 }

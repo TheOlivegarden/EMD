@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
+      "Id": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\js\\toast-notifs.js",
+      "PackagePath": "staticwebassets\\js\\toast-notifs.js"
+    },
+    {
       "Id": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },

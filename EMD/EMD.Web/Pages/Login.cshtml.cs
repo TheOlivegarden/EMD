@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using EMD.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +11,6 @@ namespace EMD.Web.Pages
 
         [BindProperty]
         public LoginViewModel LoginViewModel { get; set; }
-
-        [TempData]
-        public string SuccessMessage { get; set; }
-        [TempData]
-        public string ErrorMessage { get; set; }
 
         public LoginModel(SignInManager<IdentityUser> signInManager)
         {
@@ -35,11 +29,12 @@ namespace EMD.Web.Pages
 
                 if (result.Succeeded)
                 {
+                    TempData["SuccessMessage"] = "Login successful.";
                     return RedirectToPage("/Index");
                 }
                 else
                 {
-                    ErrorMessage = "Invalid username or password.";
+                    TempData["ErrorMessage"] = "Invalid username or password.";
                 }
             }
 

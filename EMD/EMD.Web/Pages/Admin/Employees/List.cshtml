@@ -13,33 +13,26 @@
         </div>
     </form>
 
-    @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+    @if (Model.ShowNotification)
     {
-        <div class="toast-container position-fixed top-0 end-0 p-3">
-            <div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
+        <div id="notificationContainer" class="position-fixed top-0 end-0 p-3">
+            @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+            {
+                <div class="toast bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
                     <div class="toast-body">
-                        <i class="bi bi-check-circle-fill me-2"></i>
-                        @Model.SuccessMessage
+                        @TempData["SuccessMessage"]
                     </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
-            </div>
-        </div>
-    }
+            }
 
-    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-    {
-        <div class="toast-container position-fixed top-0 end-0 p-3">
-            <div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
+            @if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+            {
+                <div class="toast bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
                     <div class="toast-body">
-                        <i class="bi bi-x-circle-fill me-2"></i>
-                        @Model.ErrorMessage
+                        @TempData["ErrorMessage"]
                     </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
-            </div>
+            }
         </div>
     }
 
@@ -75,21 +68,4 @@
     }
 </div>
 
-<!-- JavaScript to show and hide the toast notifications -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var successToast = document.querySelector('.toast.bg-success');
-        var errorToast = document.querySelector('.toast.bg-danger');
-
-        var successToastInstance = new bootstrap.Toast(successToast);
-        var errorToastInstance = new bootstrap.Toast(errorToast);
-
-        if (successToast) {
-            successToastInstance.show();
-        }
-
-        if (errorToast) {
-            errorToastInstance.show();
-        }
-    });
-</script>
+<script src="/js/toast-notifs.js"></script>

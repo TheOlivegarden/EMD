@@ -1,11 +1,7 @@
-using EMD.Web.Data;
 using EMD.Web.Models.Domain;
 using EMD.Web.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading.Tasks;
 
 namespace EMD.Web.Pages.Admin.Employees
 {
@@ -16,28 +12,52 @@ namespace EMD.Web.Pages.Admin.Employees
         [BindProperty]
         public Emd Employee { get; set; }
 
+        [TempData]
+        public string SuccessMessage { get; set; }
+
+        [TempData]
+        public string ErrorMessage { get; set; }
+
         public EditModel(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
         }
 
-        public async Task OnGet(Guid id)
+        public async Task<IActionResult> OnGet(Guid id)
         {
             Employee = await _employeeRepository.GetAsync(id);
+
+            if (Employee == null)
+            {
+                ErrorMessage = "Employee not found.";
+                return RedirectToPage("/Admin/Employees/List");
+            }
+
+            SuccessMessage = null;
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostUpdate()
         {
+            if (Employee.BirthDate > DateTime.Now || Employee.BirthDate < DateTime.Now.AddYears(-65))
+            {
+                TempData["ErrorMessage"] = "Invalid birth date.";
+                return RedirectToPage();
+            }
+
             var updatedEmployee = await _employeeRepository.UpdateAsync(Employee);
 
             if (updatedEmployee != null)
             {
-                TempData["SuccessMessage"] = "Changes were successfully saved.";
+                TempData["SuccessMessage"] = "Employee updated successfully.";
                 return RedirectToPage("/Admin/Employees/List");
             }
-
-            TempData["ErrorMessage"] = "Failed to update employee details.";
-            return Page();
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to update employee.";
+                return Page();
+            }
         }
 
         public async Task<IActionResult> OnPostDelete()
@@ -48,9 +68,11 @@ namespace EMD.Web.Pages.Admin.Employees
                 TempData["SuccessMessage"] = "Employee was successfully deleted.";
                 return RedirectToPage("/Admin/Employees/List");
             }
-
-            TempData["ErrorMessage"] = "Failed to delete employee.";
-            return Page();
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to delete employee.";
+                return Page();
+            }
         }
     }
 }

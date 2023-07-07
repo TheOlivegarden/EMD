@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "fYwHln/DYD3RQza086f7JQUms+IPBaQU5JDCCtH4Pf8=",
+  "Hash": "jC5wIbX7TtYNHDe/0GoQmX/QpluCRS6CrGSNB8ptIWk=",
   "Source": "EMD.Web",
   "BasePath": "_content/EMD.Web",
   "Mode": "Default",
@@ -117,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\js\\toast-notifs.js",
+      "SourceId": "EMD.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\",
+      "BasePath": "_content/EMD.Web",
+      "RelativePath": "js/toast-notifs.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\toast-notifs.js"
     },
     {
       "Identity": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
