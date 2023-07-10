@@ -115,13 +115,6 @@
   z-index: 1030;
 }
 
-.sticky-top {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 1020;
-}
-
 @media (min-width: 576px) {
   .sticky-sm-top {
     position: -webkit-sticky;

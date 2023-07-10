@@ -14,56 +14,6 @@
     <script src="~/js/toast-notifs.js"></script>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-            <div class="container">
-                <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">Employee Management Dashboard</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        @if (signInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-                                <div class="nav-link text-primary">
-                                    Welcome, @User?.Identity?.Name
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="navbarDrowdownAdmin">Management</a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDrowdownAdmin">
-                                    <li>
-                                        <a class="dropdown-item navbar-button text-dark" href="/Admin/Employees/Add">Add New Employee</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item navbar-button text-dark" href="/Admin/Employees/List">View All Employees</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        }
-                        
-
-                        @if (signInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-                                <a href="/Logout" class="nav-link text-primary">Logout</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a href="/Register" class="nav-link text-primary">Register</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/Login" class="nav-link text-primary">Login</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
     <main role="main" class="pb-3">
         @RenderBody()
     </main>

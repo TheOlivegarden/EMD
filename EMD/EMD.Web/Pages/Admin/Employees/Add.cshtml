@@ -12,28 +12,28 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="Name" class="form-label">First Name</label>
-                        <input type="text" class="form-control" placeholder="Enter first name" id="Name" asp-for="AddEmployeeRequset.Name" required>
+                        <input type="text" class="form-control" placeholder="Enter first name" id="Name" asp-for="AddEmployeeRequest.Name" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="Surname" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="Surname" placeholder="Enter last name" asp-for="AddEmployeeRequset.Surname" required>
+                        <input type="text" class="form-control" id="Surname" placeholder="Enter last name" asp-for="AddEmployeeRequest.Surname" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Email" class="form-label">Email</label>
-                    <input type="text" class="form-control" id="Email" placeholder="Enter email" asp-for="AddEmployeeRequset.Email" required>
+                    <input type="text" class="form-control" id="Email" placeholder="Enter email" asp-for="AddEmployeeRequest.Email" required>
                 </div>
                 <div class="form-group">
                     <label for="Phone" class="form-label">Phone</label>
-                    <input type="text" class="form-control" id="Phone" placeholder="Enter phone number" asp-for="AddEmployeeRequset.Phone" required>
+                    <input type="text" class="form-control" id="Phone" placeholder="Enter phone number" asp-for="AddEmployeeRequest.Phone" required>
                 </div>
                 <div class="form-group">
                     <label for="Address" class="form-label">Address</label>
-                    <input type="text" class="form-control" id="Address" placeholder="Enter address" asp-for="AddEmployeeRequset.Address" required>
+                    <input type="text" class="form-control" id="Address" placeholder="Enter address" asp-for="AddEmployeeRequest.Address" required>
                 </div>
                 <div class="form-group">
                     <label for="Department" class="form-label">Department</label>
-                    <select class="form-control" id="Department" asp-for="AddEmployeeRequset.Department">
+                    <select class="form-control" id="Department" asp-for="AddEmployeeRequest.Department">
                         <option value="">Select department</option>
                         <option value="Sales">Sales</option>
                         <option value="Marketing">Marketing</option>
@@ -43,14 +43,28 @@
                 </div>
                 <div class="form-group">
                     <label for="BirthDate" class="form-label">Birth Date</label>
-                    <input type="date" class="form-control" id="BirthDate" asp-for="AddEmployeeRequset.BirthDate" required>
+                    <input type="date" class="form-control" id="BirthDate" asp-for="AddEmployeeRequest.BirthDate" required>
                 </div>
                 <div class="form-group">
                     <label for="Description" class="form-label">Description</label>
-                    <textarea class="form-control" id="Description" rows="3" placeholder="Enter description" asp-for="AddEmployeeRequset.Description"></textarea>
+                    <textarea class="form-control" id="Description" rows="3" placeholder="Enter description" asp-for="AddEmployeeRequest.Description"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary mt-3">Add Employee</button>
             </form>
+            @if (!string.IsNullOrEmpty(TempData["InvalidDate"] as string))
+            {
+                <div class="toast-container position-fixed top-0 end-0 p-3">
+                    <div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                <i class="bi bi-x-circle-fill me-2"></i>
+                                @TempData["InvalidDate"]
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>

@@ -3,7 +3,6 @@ using EMD.Web.Models.ViewModels;
 using EMD.Web.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 
 namespace EMD.Web.Pages.Admin.Employees
@@ -13,7 +12,7 @@ namespace EMD.Web.Pages.Admin.Employees
         private readonly IEmployeeRepository _employeeRepository;
 
         [BindProperty]
-        public AddEmployee AddEmployeeRequset { get; set; }
+        public AddEmployee AddEmployeeRequest { get; set; }
 
         public AddEmployeesModel(IEmployeeRepository employeeRepository)
         {
@@ -29,19 +28,19 @@ namespace EMD.Web.Pages.Admin.Employees
         {
             var employee = new Emd()
             {
-                Name = AddEmployeeRequset.Name,
-                Surname = AddEmployeeRequset.Surname,
-                Email = AddEmployeeRequset.Email,
-                Phone = AddEmployeeRequset.Phone,
-                Address = AddEmployeeRequset.Address,
-                Department = AddEmployeeRequset.Department,
-                BirthDate = AddEmployeeRequset.BirthDate,
-                Description = AddEmployeeRequset.Description,
+                Name = AddEmployeeRequest.Name,
+                Surname = AddEmployeeRequest.Surname,
+                Email = AddEmployeeRequest.Email,
+                Phone = AddEmployeeRequest.Phone,
+                Address = AddEmployeeRequest.Address,
+                Department = AddEmployeeRequest.Department,
+                BirthDate = AddEmployeeRequest.BirthDate,
+                Description = AddEmployeeRequest.Description,
             };
 
             if (employee.BirthDate > DateTime.Now || employee.BirthDate < DateTime.Now.AddYears(-65))
             {
-                ModelState.AddModelError("AddEmployeeRequest.BirthDate", "Please enter a date within the allowed range.");
+                TempData["InvalidDate"] = "Invalid Date.";
                 return Page();
             }
 
@@ -50,7 +49,6 @@ namespace EMD.Web.Pages.Admin.Employees
             if (employee.Id != Guid.Empty)
             {
                 TempData["SuccessMessage"] = "Employee was successfully added.";
-
                 return RedirectToPage("/Admin/Employees/List");
             }
             else
