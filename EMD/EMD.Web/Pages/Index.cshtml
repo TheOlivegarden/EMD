@@ -1,11 +1,12 @@
 ﻿@page
-@using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Identity
 @model EMD.Web.Pages.IndexModel
 @inject SignInManager<IdentityUser> signInManager
 @{
     ViewData["Title"] = "Home";
 }
-<body data-new-gr-c-s-check-loaded="14.1114.0" data-gr-ext-installed="">
+
+<body>
     @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
     {
         <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
@@ -25,13 +26,11 @@
     {
         <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0" style="z-index: 999;">
             <div class="container">
-                <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">Employee Management Dashboard</a>
+                <a class="navbar-brand logo col-sm-3 col-md-2 mr-0" href="/">Employee Management Dashboard</a>
             </div>
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
-                    <a class="nav-link" href="/Logout">
-                        Logout
-                    </a>
+                    <a class="nav-link" href="/Logout">Logout</a>
                 </li>
             </ul>
         </nav>
@@ -50,7 +49,8 @@
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="navbarDrowdownAdmin">Management</a>
+                                <a class="nav-link dropdown-toggle text-primary" href="#" role="button" 
+                                data-bs-toggle="dropdown" aria-expanded="false" id="navbarDrowdownAdmin">Management</a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDrowdownAdmin">
                                     <li>
                                         <a class="dropdown-item navbar-button text-dark" href="/Admin/Employees/Add">Add New Employee</a>
@@ -60,26 +60,32 @@
                                     </li>
                                 </ul>
                             </li>
-
                         </ul>
                     </div>
+                    <div class="dropdown">
+                        <div class="content">
+                            <p>Settings</p>
+                        </div>
+                        <button type="button"></button>
+                        <div class="menu">
+                            <a>
+                                <p> Account </p>
+                            </a>
+                            <a>
+                                <p> Payments </p>
+                            </a>
+                            <a>
+                                <p> Archive </p>
+                            </a>
+                        </div>
+                    </div>
                 </nav>
-                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-                    <div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-                        <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                            <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0">
-                            </div>
-                        </div>
-                        <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                            <div style="position:absolute;width:200%;height:200%;left:0; top:0">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                        <h1 class="h2">Dashboard</h1>
-                    </div>
 
-                    <canvas class="my-4 chartjs-render-monitor" id="myChart" width="996" height="420" style="display: block; height: 336px; width: 797px;"></canvas>
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                    <div class="chart-container" width="600" height="400">
+                        <h1 class="dashboard-heading">Dashboard</h1>
+                        <canvas id="myChart"></canvas>
+                    </div>
                 </main>
             </div>
         </div>
@@ -107,37 +113,6 @@
         </div>
     }
 
-    <!-- Graphs -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.1/dist/Chart.min.js"></script>
-    <script>
-        var ctx = document.getElementById("myChart");
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                datasets: [{
-                    data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-                    lineTension: 0,
-                    backgroundColor: 'transparent',
-                    borderColor: '#007bff',
-                    borderWidth: 4,
-                    pointBackgroundColor: '#007bff'
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: false
-                        }
-                    }]
-                },
-                legend: {
-                    display: false,
-                }
-            }
-        });
-    </script>
 
     <link rel="stylesheet" href="~/css/custom.css" />
     <script src="~/js/toast-notifs.js"></script>
