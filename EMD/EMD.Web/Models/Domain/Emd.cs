@@ -11,5 +11,7 @@
         public string Department { get; set; }
         public DateTime BirthDate { get; set; }
         public string Description { get; set; }
+        public DateTime DateCreated { get; set; }
+
     }
 }

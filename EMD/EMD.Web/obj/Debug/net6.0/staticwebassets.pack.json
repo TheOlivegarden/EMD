@@ -205,30 +205,6 @@
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Id": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\lib\\chartjs\\Chart.bundle.js",
-      "PackagePath": "staticwebassets\\lib\\chartjs\\Chart.bundle.js"
-    },
-    {
-      "Id": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\lib\\chartjs\\Chart.bundle.min.js",
-      "PackagePath": "staticwebassets\\lib\\chartjs\\Chart.bundle.min.js"
-    },
-    {
-      "Id": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\lib\\chartjs\\Chart.css",
-      "PackagePath": "staticwebassets\\lib\\chartjs\\Chart.css"
-    },
-    {
-      "Id": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\lib\\chartjs\\Chart.js",
-      "PackagePath": "staticwebassets\\lib\\chartjs\\Chart.js"
-    },
-    {
-      "Id": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\lib\\chartjs\\Chart.min.css",
-      "PackagePath": "staticwebassets\\lib\\chartjs\\Chart.min.css"
-    },
-    {
-      "Id": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\lib\\chartjs\\Chart.min.js",
-      "PackagePath": "staticwebassets\\lib\\chartjs\\Chart.min.js"
-    },
-    {
       "Id": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },

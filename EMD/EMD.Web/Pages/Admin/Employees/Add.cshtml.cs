@@ -36,6 +36,7 @@ namespace EMD.Web.Pages.Admin.Employees
                 Department = AddEmployeeRequest.Department,
                 BirthDate = AddEmployeeRequest.BirthDate,
                 Description = AddEmployeeRequest.Description,
+                DateCreated = DateTime.Now
             };
 
             if (employee.BirthDate > DateTime.Now || employee.BirthDate < DateTime.Now.AddYears(-65))
