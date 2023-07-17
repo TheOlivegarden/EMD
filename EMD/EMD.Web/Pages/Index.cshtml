@@ -50,7 +50,8 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link dropdown-toggle text-primary" href="#" role="button"
-                                   data-bs-toggle="dropdown" aria-expanded="false" id="navbarDrowdownAdmin">Management</a>
+                                   data-bs-toggle="dropdown" aria-expanded="false" id="navbarDrowdownAdmin">Management
+                               </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDrowdownAdmin">
                                     <li>
                                         <a class="dropdown-item navbar-button text-dark" href="/Admin/Employees/Add">Add New Employee</a>
@@ -60,34 +61,26 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">
+                                    Settings
+                                </a>
+                            </li>
                         </ul>
                     </div>
-                    <div class="dropdown">
-                        <div class="content">
-                            <p>Settings</p>
-                        </div>
-                        <button type="button"></button>
-                        <div class="menu">
-                            <a>
-                                <p> Account </p>
-                            </a>
-                            <a>
-                                <p> Payments </p>
-                            </a>
-                            <a>
-                                <p> Archive </p>
-                            </a>
-                        </div>
-                    </div>
                 </nav>
-
                 <main role="main" class="col-md-10 ml-sm-auto col-lg-10 pt-3 px-4">
                     <div class="chart-container">
                         <h1 class="dashboard-heading">Dashboard</h1>
-                        <canvas id="myChart"></canvas>
+                        <div class="chart-buttons">
+                            <button id="lineChartButton" class="btn btn-primary">Show Employee Number</button>
+                            <button id="pieChartButton" class="btn btn-primary">Show Departments</button>
+                        </div>
+                        <canvas class="mb-5" id="myChart"></canvas>
+                        <canvas class="mb-3 mt-3" id="pieChart"></canvas>
                     </div>
                 </main>
-            </div>
+            </div>          
         </div>
     }
     else
@@ -121,6 +114,11 @@
 
     <script>
         $(document).ready(function () {
+            var lineChart = null;
+            var pieChart = null;
+            var lineChartData = null; // Variable to store the line chart data
+            var pieChartData = null; // Variable to store the pie chart data
+
             $.ajax({
                 type: "GET",
                 url: "/Index?handler=EmployeeData",
@@ -134,35 +132,96 @@
                         color.push("rgba(255, 99, 132, 0.2)");
                     }
 
-                    var ctx = document.getElementById("myChart");
-                    var myChart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'Number of Employees',
-                                data: data,
-                                backgroundColor: color,
-                                borderColor: 'rgba(255, 99, 132, 1)',
-                                borderWidth: 2
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    stepSize: 1
-                                }
-                            }
-                        }
-                    });
+                    lineChartData = { // Store the line chart data
+                        labels: labels,
+                        datasets: [{
+                            label: 'Number of Employees',
+                            data: data,
+                            backgroundColor: color,
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 2
+                        }]
+                    };
+
+                    var pieData = response.departmentCounts;
+                    var pieLabels = response.departmentNames;
+                    var pieColor = [
+                        'rgb(186, 36, 13)',
+                        'rgb(50, 115, 158)',
+                        'rgb(203, 136, 195)',
+                        'rgb(82, 199, 82)'
+                    ];
+
+                    pieChartData = { // Store the pie chart data
+                        labels: pieLabels,
+                        datasets: [{
+                            data: pieData,
+                            backgroundColor: pieColor,
+                            borderColor: 'rgba(255, 255, 255, 1)',
+                            borderWidth: 1
+                        }]
+                    };
                 },
                 error: function (response) {
                     alert(response.responseText);
                 }
             });
+
+            $('#lineChartButton').on('click', function () {
+                if (lineChart) {
+                    lineChart.destroy();
+                    lineChart = null;
+                    $('#lineChartButton').text('Show Employee Number');
+                } else {
+                    createLineChart();
+                    $('#lineChartButton').text('Close Employee Number');
+                }
+            });
+
+            $('#pieChartButton').on('click', function () {
+                if (pieChart) {
+                    pieChart.destroy();
+                    pieChart = null;
+                    $('#pieChartButton').text('Show Departments');
+                } else {
+                    createPieChart();
+                    $('#pieChartButton').text('Close Departments');
+                }
+            });
+
+            function createLineChart() {
+                var ctx = document.getElementById("myChart");
+                lineChart = new Chart(ctx, {
+                    type: 'line',
+                    data: lineChartData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                stepSize: 1
+                            }
+                        }
+                    }
+                });
+            }
+
+            function createPieChart() {
+                var pieCtx = document.getElementById("pieChart");
+                pieChart = new Chart(pieCtx, {
+                    type: 'pie',
+                    data: pieChartData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        legend: {
+                            display: true,
+                            position: 'right'
+                        }
+                    }
+                });
+            }
         });
     </script>
 

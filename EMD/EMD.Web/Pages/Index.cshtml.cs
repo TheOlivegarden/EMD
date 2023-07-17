@@ -29,7 +29,19 @@ namespace EMD.Web.Pages
                 dates.Add(date.ToString("yyyy-MM-dd"));
             }
 
-            return new JsonResult(new { employeeCount = employeeCountData, dates });
+            var departments = _eMDDbContext.Emds
+                .GroupBy(e => e.Department)
+                .Select(g => new
+                {
+                    Department = g.Key,
+                    Count = g.Count()
+                })
+                .ToList();
+
+            var departmentNames = departments.Select(d => d.Department).ToList();
+            var departmentCounts = departments.Select(d => d.Count).ToList();
+
+            return new JsonResult(new { employeeCount = employeeCountData, dates, departmentNames, departmentCounts });
         }
     }
 }
