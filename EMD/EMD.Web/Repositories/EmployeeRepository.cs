@@ -69,7 +69,10 @@ namespace EMD.Web.Repositories
         public async Task<IEnumerable<Emd>> SearchAsync(string searchTerm)
         {
             return await _eMDDbContext.Emds
-                .Where(e => e.Name.Contains(searchTerm) || e.Email.Contains(searchTerm) || e.Department.Contains(searchTerm))
+                .Where(e => e.Name.Contains(searchTerm) ||
+                            e.Email.Contains(searchTerm) ||
+                            e.Department.Contains(searchTerm) ||
+                            e.BirthDate.ToString().Contains(searchTerm))
                 .ToListAsync();
         }
     }

@@ -6,118 +6,122 @@
     ViewData["Title"] = "Home";
 }
 
-<body>
-    @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
-    {
-        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
-            <div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        <i class="bi bi-check-circle-fill me-2"></i>
-                        @TempData["SuccessMessage"]
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+@if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+{
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+        <div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    @TempData["SuccessMessage"]
                 </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
-    }
+    </div>
+}
 
-    @if (signInManager.IsSignedIn(User))
-    {
-        <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0" style="z-index: 999;">
-            <div class="container">
-                <a class="navbar-brand logo col-sm-3 col-md-2 mr-0" href="/">Employee Management Dashboard</a>
-            </div>
+@if (signInManager.IsSignedIn(User))
+{
+    <nav class="navbar navbar-dark bg-dark navbar-expand-md flex-md-nowrap p-0" style="z-index: 999;">
+        <div class="container">
+            <a class="navbar-brand logo col-sm-3 col-md-2 mr-0" href="/">Employee Management Dashboard</a>
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" href="/Logout">Logout</a>
                 </li>
             </ul>
-        </nav>
-        <div class="container-fluid">
-            <div class="row">
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark flex-md-nowrap p-0 col-md-2 d-none d-md-block bg-light sidebar">
-                    <div class="sidebar-sticky">
-                        <div class="nav-link text-primary mt-2">
-                            Welcome, @User?.Identity?.Name
-                        </div>
-
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="/index">
-                                    Dashboard
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link dropdown-toggle text-primary" href="#" role="button"
-                                   data-bs-toggle="dropdown" aria-expanded="false" id="navbarDrowdownAdmin">Management
-                               </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDrowdownAdmin">
-                                    <li>
-                                        <a class="dropdown-item navbar-button text-dark" href="/Admin/Employees/Add">Add New Employee</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item navbar-button text-dark" href="/Admin/Employees/List">View All Employees</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#">
-                                    Settings
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-                <main role="main" class="col-md-10 ml-sm-auto col-lg-10 pt-3 px-4">
-                    <div class="chart-container">
-                        <h1 class="dashboard-heading">Dashboard</h1>
-                        <div class="chart-buttons">
-                            <button id="lineChartButton" class="btn btn-primary">Show Employee Number</button>
-                            <button id="pieChartButton" class="btn btn-primary">Show Departments</button>
-                        </div>
-                        <canvas class="mb-5" id="myChart"></canvas>
-                        <canvas class="mb-3 mt-3" id="pieChart"></canvas>
-                    </div>
-                </main>
-            </div>          
         </div>
-    }
-    else
-    {
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Choose an option</h5>
-                            <ul class="nav nav-pills justify-content-center">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="/Register">Register</a>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark flex-md-nowrap p-0 col-md-2 sidebar">
+                <div class="sidebar-sticky">
+                    <div class="nav-link text-primary mt-2">
+                        Welcome, @User?.Identity?.Name @if (Model.UpdatedUsername != null)
+                        {
+                            <text>(Updated: @Model.UpdatedUsername)</text>
+                        }
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/index">
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-primary" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false" id="navbarDrowdownAdmin">
+                                Management
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDrowdownAdmin">
+                                <li>
+                                    <a class="dropdown-item navbar-button text-dark" href="/Admin/Employees/Add">Add New Employee</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/Login">Login</a>
+                                <li>
+                                    <a class="dropdown-item navbar-button text-dark" href="/Admin/Employees/List">View All Employees</a>
                                 </li>
                             </ul>
-                        </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/Admin/Settings">
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="main-content col-md-10 ml-sm-auto col-lg-10 pt-3 px-4">
+                <div class="chart-container">
+                    <h1 class="dashboard-heading">Dashboard</h1>
+                    <div class="chart-buttons">
+                        <button id="lineChartButton" class="btn btn-primary">Show Employee Number</button>
+                        <button id="pieChartButton" class="btn btn-primary">Show Departments</button>
+                    </div>
+                    <div id="chartsContainer">
+                        <canvas class="mb-5" id="myChart"></canvas>
+                        <canvas class="mb-3 mt-3" id="pieChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
-    }
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Choose an option</h5>
+                        <ul class="nav nav-pills justify-content-center">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Login">Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
-    <link rel="stylesheet" href="~/css/custom.css" />
-    <script src="~/js/toast-notifs.js"></script>
+<link rel="stylesheet" href="~/css/custom.css" />
+<script src="~/js/toast-notifs.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         $(document).ready(function () {
             var lineChart = null;
             var pieChart = null;
-            var lineChartData = null; // Variable to store the line chart data
-            var pieChartData = null; // Variable to store the pie chart data
+            var lineChartData = null;
+            var pieChartData = null;
 
             $.ajax({
                 type: "GET",
@@ -132,7 +136,7 @@
                         color.push("rgba(255, 99, 132, 0.2)");
                     }
 
-                    lineChartData = { // Store the line chart data
+                    lineChartData = {
                         labels: labels,
                         datasets: [{
                             label: 'Number of Employees',
@@ -152,7 +156,7 @@
                         'rgb(82, 199, 82)'
                     ];
 
-                    pieChartData = { // Store the pie chart data
+                    pieChartData = {
                         labels: pieLabels,
                         datasets: [{
                             data: pieData,
@@ -224,5 +228,3 @@
             }
         });
     </script>
-
-</body>

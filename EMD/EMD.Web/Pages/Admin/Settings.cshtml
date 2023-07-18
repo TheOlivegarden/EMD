@@ -1,0 +1,85 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity;
+@model EMD.Web.Pages.Admin.SettingsModel
+@inject SignInManager<IdentityUser> signInManager
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<h1 class="text-center mt-4">Settings</h1>
+
+<div class="card w-50 mx-auto mt-5">
+    <div class="card-body">
+        <h2 class="card-title">Edit Account Information</h2>
+
+        <form method="post" id="editUsernameForm" asp-page-handler="EditUsername">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" value="@Model.Username" required>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Save Username</button>
+            </div>
+        </form>
+
+        <form method="post" id="editEmailForm" asp-page-handler="EditEmail">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="@Model.Email" required>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Save Email</button>
+            </div>
+        </form>
+
+        <form method="post" id="changePasswordForm" asp-page-handler="ChangePassword">
+            <div class="mb-3">
+                <label for="password" class="form-label">New Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelp" required>
+                    <button type="button" class="btn btn-outline-secondary" id="revealPasswordBtn">Show</button>
+                </div>
+                <div id="passwordHelp" class="form-text">Leave blank if you don't want to change the password.</div>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Change Password</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card w-50 mx-auto mt-5">
+    <div class="card-body">
+        <form method="post" id="deleteForm">
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-danger">Delete Account</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="text-center mt-3">
+    <a href="/index" class="btn btn-primary">Back to Home</a>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#deleteForm').submit(function () {
+                return confirm("Are you sure you want to delete your account?");
+            });
+
+            $('#revealPasswordBtn').click(function () {
+                var passwordInput = $('#password');
+                var passwordFieldType = passwordInput.attr('type');
+                if (passwordFieldType === 'password') {
+                    passwordInput.attr('type', 'text');
+                    $(this).text('Hide');
+                } else {
+                    passwordInput.attr('type', 'password');
+                    $(this).text('Show');
+                }
+            });
+        });
+    </script>
+}

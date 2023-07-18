@@ -9,6 +9,9 @@ namespace EMD.Web.Pages
     {
         private readonly EMDDbContext _eMDDbContext;
 
+        [TempData]
+        public string UpdatedUsername { get; set; }
+
         public IndexModel(EMDDbContext context)
         {
             _eMDDbContext = context;
