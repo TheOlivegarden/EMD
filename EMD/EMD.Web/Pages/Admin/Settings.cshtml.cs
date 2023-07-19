@@ -56,14 +56,15 @@ namespace EMD.Web.Pages.Admin
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
+                    Username = string.Empty;
                 }
                 else
                 {
-                    TempData["SuccessMessage"] = "Username updated successfully.";
+                    TempData["UpdatedUsername"] = Username;
                 }
             }
 
-            return Page();
+            return RedirectToPage("/Index");
         }
 
         public async Task<IActionResult> OnPostEditEmailAsync()
@@ -85,15 +86,11 @@ namespace EMD.Web.Pages.Admin
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
-                else
-                {
-                    TempData["SuccessMessage"] = "Email updated successfully.";
-                }
             }
+            Email = user.Email;
 
             return Page();
         }
-
         public async Task<IActionResult> OnPostChangePasswordAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -112,11 +109,8 @@ namespace EMD.Web.Pages.Admin
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
-                else
-                {
-                    TempData["SuccessMessage"] = "Password changed successfully.";
-                }
             }
+            NewPassword = string.Empty;
 
             return Page();
         }
@@ -140,8 +134,7 @@ namespace EMD.Web.Pages.Admin
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
-
-            return Page();
+            return RedirectToPage("/Index");
         }
     }
 }

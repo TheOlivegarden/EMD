@@ -35,12 +35,17 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark flex-md-nowrap p-0 col-md-2 sidebar">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark flex-md-nowrap mt-3 p-0 col-md-2 d-none d-md-block bg-light sidebar">
                 <div class="sidebar-sticky">
-                    <div class="nav-link text-primary mt-2">
-                        Welcome, @User?.Identity?.Name @if (Model.UpdatedUsername != null)
+                    <div class="nav-link text-primary">
+                        Welcome,
+                        @if (TempData["UpdatedUsername"] != null)
                         {
-                            <text>(Updated: @Model.UpdatedUsername)</text>
+                            <text>@TempData["UpdatedUsername"]</text>
+                        }
+                        else
+                        {
+                            @User?.Identity?.Name
                         }
                     </div>
                     <ul class="nav flex-column">
@@ -78,10 +83,8 @@
                         <button id="lineChartButton" class="btn btn-primary">Show Employee Number</button>
                         <button id="pieChartButton" class="btn btn-primary">Show Departments</button>
                     </div>
-                    <div id="chartsContainer">
-                        <canvas class="mb-5" id="myChart"></canvas>
-                        <canvas class="mb-3 mt-3" id="pieChart"></canvas>
-                    </div>
+                    <canvas class="mb-5" id="myChart" max-height="400px"></canvas>
+                    <canvas class="mb-3 mt-3" id="pieChart" max-height="400px"></canvas>
                 </div>
             </div>
         </div>
@@ -116,115 +119,115 @@ else
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            var lineChart = null;
-            var pieChart = null;
-            var lineChartData = null;
-            var pieChartData = null;
+<script>
+    $(document).ready(function () {
+        var lineChart = null;
+        var pieChart = null;
+        var lineChartData = null;
+        var pieChartData = null;
 
-            $.ajax({
-                type: "GET",
-                url: "/Index?handler=EmployeeData",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    var data = response.employeeCount;
-                    var labels = response.dates;
-                    var color = [];
-                    for (var i = 0; i < response.dates.length; i++) {
-                        color.push("rgba(255, 99, 132, 0.2)");
-                    }
-
-                    lineChartData = {
-                        labels: labels,
-                        datasets: [{
-                            label: 'Number of Employees',
-                            data: data,
-                            backgroundColor: color,
-                            borderColor: 'rgba(255, 99, 132, 1)',
-                            borderWidth: 2
-                        }]
-                    };
-
-                    var pieData = response.departmentCounts;
-                    var pieLabels = response.departmentNames;
-                    var pieColor = [
-                        'rgb(186, 36, 13)',
-                        'rgb(50, 115, 158)',
-                        'rgb(203, 136, 195)',
-                        'rgb(82, 199, 82)'
-                    ];
-
-                    pieChartData = {
-                        labels: pieLabels,
-                        datasets: [{
-                            data: pieData,
-                            backgroundColor: pieColor,
-                            borderColor: 'rgba(255, 255, 255, 1)',
-                            borderWidth: 1
-                        }]
-                    };
-                },
-                error: function (response) {
-                    alert(response.responseText);
+        $.ajax({
+            type: "GET",
+            url: "/Index?handler=EmployeeData",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                var data = response.employeeCount;
+                var labels = response.dates;
+                var color = [];
+                for (var i = 0; i < response.dates.length; i++) {
+                    color.push("rgba(255, 99, 132, 0.2)");
                 }
-            });
 
-            $('#lineChartButton').on('click', function () {
-                if (lineChart) {
-                    lineChart.destroy();
-                    lineChart = null;
-                    $('#lineChartButton').text('Show Employee Number');
-                } else {
-                    createLineChart();
-                    $('#lineChartButton').text('Close Employee Number');
-                }
-            });
+                lineChartData = { // Store the line chart data
+                    labels: labels,
+                    datasets: [{
+                        label: 'Number of Employees',
+                        data: data,
+                        backgroundColor: color,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2
+                    }]
+                };
 
-            $('#pieChartButton').on('click', function () {
-                if (pieChart) {
-                    pieChart.destroy();
-                    pieChart = null;
-                    $('#pieChartButton').text('Show Departments');
-                } else {
-                    createPieChart();
-                    $('#pieChartButton').text('Close Departments');
-                }
-            });
+                var pieData = response.departmentCounts;
+                var pieLabels = response.departmentNames;
+                var pieColor = [
+                    'rgb(186, 36, 13)',
+                    'rgb(50, 115, 158)',
+                    'rgb(203, 136, 195)',
+                    'rgb(82, 199, 82)'
+                ];
 
-            function createLineChart() {
-                var ctx = document.getElementById("myChart");
-                lineChart = new Chart(ctx, {
-                    type: 'line',
-                    data: lineChartData,
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                stepSize: 1
-                            }
-                        }
-                    }
-                });
-            }
-
-            function createPieChart() {
-                var pieCtx = document.getElementById("pieChart");
-                pieChart = new Chart(pieCtx, {
-                    type: 'pie',
-                    data: pieChartData,
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        legend: {
-                            display: true,
-                            position: 'right'
-                        }
-                    }
-                });
+                pieChartData = { // Store the pie chart data
+                    labels: pieLabels,
+                    datasets: [{
+                        data: pieData,
+                        backgroundColor: pieColor,
+                        borderColor: 'rgba(255, 255, 255, 1)',
+                        borderWidth: 1
+                    }]
+                };
+            },
+            error: function (response) {
+                alert(response.responseText);
             }
         });
-    </script>
+
+        $('#lineChartButton').on('click', function () {
+            if (lineChart) {
+                lineChart.destroy();
+                lineChart = null;
+                $('#lineChartButton').text('Show Employee Number');
+            } else {
+                createLineChart();
+                $('#lineChartButton').text('Close Employee Number');
+            }
+        });
+
+        $('#pieChartButton').on('click', function () {
+            if (pieChart) {
+                pieChart.destroy();
+                pieChart = null;
+                $('#pieChartButton').text('Show Departments');
+            } else {
+                createPieChart();
+                $('#pieChartButton').text('Close Departments');
+            }
+        });
+
+        function createLineChart() {
+            var ctx = document.getElementById("myChart");
+            lineChart = new Chart(ctx, {
+                type: 'line',
+                data: lineChartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            stepSize: 1
+                        }
+                    }
+                }
+            });
+        }
+
+        function createPieChart() {
+            var pieCtx = document.getElementById("pieChart");
+            pieChart = new Chart(pieCtx, {
+                type: 'pie',
+                data: pieChartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: true,
+                        position: 'right'
+                    }
+                }
+            });
+        }
+    });
+</script>
