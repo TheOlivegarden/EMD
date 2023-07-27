@@ -56,7 +56,6 @@ namespace EMD.Web.Pages.Admin
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
-                    Username = string.Empty;
                 }
                 else
                 {
@@ -110,8 +109,6 @@ namespace EMD.Web.Pages.Admin
                     }
                 }
             }
-            NewPassword = string.Empty;
-
             return Page();
         }
 

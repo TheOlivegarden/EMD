@@ -10,6 +10,6 @@ namespace EMD.Web.Data
         }
         public DbSet<Emd> Emds { get; set; }
 
-        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Tasks> Tasks { get; set; }
     }
 }

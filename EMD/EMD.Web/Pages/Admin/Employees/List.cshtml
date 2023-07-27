@@ -12,6 +12,7 @@
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
     </form>
+    <!--
     <nav class="sidebar">
         <ul id="sidebar_menu" class="metismenu">
             <li class="">
@@ -121,6 +122,8 @@
         </ul>
     </nav>
 
+    -->
+
     @if (Model.ShowNotification)
     {
         <div id="notificationContainer" class="position-fixed top-0 end-0 p-3">
@@ -183,21 +186,3 @@
 </div>
 
 <script src="/js/toast-notifs.js"></script>
-<style>
-    .sidebar {
-        height: 100vh;
-        left: 0;
-        top: 0;
-        z-index: 99;
-        padding-bottom: 50px;
-        position: fixed;
-        width: 270px;
-        z-index: 999;
-        overflow: hidden;
-        overflow-y: auto;
-        transition: .5s;
-    }
-    nav {
-        display: block;
-    }
-</style>

@@ -132,3 +132,56 @@
     font-size: 0.875rem;
     font-weight: bold;
 }
+
+.dark-theme {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+    .dark-theme .card {
+        background-color: #333333;
+        border-color: #ffffff;
+        color: #ffffff;
+    }
+
+    .dark-theme .btn-primary {
+        background-color: #00a2ff;
+        border-color: #00a2ff;
+        color: #ffffff;
+    }
+
+        .dark-theme .btn-primary:hover {
+            background-color: #008ee0;
+            border-color: #008ee0;
+        }
+
+    .dark-theme .form-control {
+        background-color: #333333;
+        border-color: #ffffff;
+        color: #ffffff;
+    }
+
+    .dark-theme .input-group-text {
+        background-color: #333333;
+        border-color: #ffffff;
+        color: #ffffff;
+    }
+
+    .dark-theme #themeSwitchBtn {
+        background-color: #00a2ff;
+        border-color: #00a2ff;
+        color: #ffffff;
+    }
+
+        .dark-theme #themeSwitchBtn:hover {
+            background-color: #008ee0;
+            border-color: #008ee0;
+        }
+
+    .dark-theme a {
+        color: #00a2ff;
+    }
+
+        .dark-theme a:hover {
+            color: #008ee0;
+        }

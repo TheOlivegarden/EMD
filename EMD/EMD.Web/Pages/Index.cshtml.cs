@@ -19,7 +19,7 @@ namespace EMD.Web.Pages
 
         public JsonResult OnGetEmployeeData()
         {
-            var startDate = DateTime.Now.Date.AddDays(-7);
+            var startDate = DateTime.Now.Date.AddDays(-14);
             var endDate = DateTime.Now.Date;
 
             var employeeCountData = new List<int>();
