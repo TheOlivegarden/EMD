@@ -23,5 +23,14 @@
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Add Task</button>
         </div>
+        <div class="form-group">
+            <label for="assignedEmployees">Assign to Employees</label>
+            <select asp-for="TaskViewModel.SelectedEmployeeIds" class="form-control" multiple>
+                @foreach (var employee in Model.AvailableEmployees)
+                {
+                    <option value="@employee.Id">@employee.Name</option>
+                }
+            </select>
+        </div>
     </form>
 </div>

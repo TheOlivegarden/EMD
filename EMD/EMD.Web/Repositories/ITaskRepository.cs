@@ -4,6 +4,11 @@ namespace EMD.Web.Repositories
 {
     public interface ITaskRepository
     {
-        Task AddTaskAsync(Tasks task);
+        Task<IEnumerable<Tasks>> GetTasksAsync();
+        Task<Tasks> GetTaskByIdAsync(Guid taskId);
+        Task AddTaskAsync(Tasks task, List<Guid> employeeIds);
+        Task UpdateTaskAsync(Tasks task, List<Guid> employeeIds);
+        Task<bool> MarkTaskAsCompletedAsync(Guid taskId);
+        Task<bool> DeleteTaskAsync(Guid id);
     }
 }

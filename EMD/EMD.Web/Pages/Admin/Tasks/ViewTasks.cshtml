@@ -1,0 +1,29 @@
+﻿@page "/Admin/Tasks/View/{id}"
+@model EMD.Web.Pages.Admin.Tasks.ViewTasksModel
+@{
+    ViewData["Title"] = "View Task";
+}
+
+<div class="container">
+    <h1>View Task</h1>
+
+    <div class="form-group">
+        <label>Title:</label>
+        <div>@Model.TaskViewModel.Title</div>
+    </div>
+    <div class="form-group">
+        <label>Description:</label>
+        <div>@Model.TaskViewModel.Description</div>
+    </div>
+    <div class="form-group">
+        <label>Deadline:</label>
+        <div>@Model.TaskViewModel.Deadline.ToString("yyyy-MM-dd")</div>
+    </div>
+    <div class="form-group">
+        <label>Completed:</label>
+        <div>@(Model.TaskViewModel.IsCompleted ? "Yes" : "No")</div>
+    </div>
+    <div class="form-group">
+        <a asp-page="/Admin/Tasks/ListTasks" class="btn btn-primary">Back to List</a>
+    </div>
+</div>

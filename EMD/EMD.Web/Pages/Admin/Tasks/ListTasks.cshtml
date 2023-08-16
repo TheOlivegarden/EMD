@@ -1,0 +1,44 @@
+﻿@page
+@model EMD.Web.Pages.Admin.Tasks.ListTasksModel
+@{
+    ViewData["Title"] = "List Tasks";
+}
+
+<div class="container">
+    <h2 class="mt-4 mb-3">Task List</h2>
+
+    @if (Model.TaskList != null && Model.TaskList.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Deadline</th>
+                    <th>Completed</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model.TaskList)
+                {
+                    <tr>
+                        <td><a href="@Url.Page("/Admin/Tasks/ViewTasks", new { id = task.Id })">@task.Title</a></td>
+                        <td>@task.Description</td>
+                        <td>@task.Deadline.ToString("yyyy-MM-dd")</td>
+                        <td>@(task.IsCompleted ? "Yes" : "No")</td>
+                        <td><a href="@Url.Page("/Admin/Tasks/EditTasks", new { id = task.Id })">Edit</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No tasks found!</p>
+    }
+
+    <div class="text-center mt-3">
+        <a href="/Admin/Tasks/AddTasks" class="btn btn-primary">Add Task</a>
+    </div>
+</div>
