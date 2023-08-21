@@ -27,12 +27,12 @@ namespace EMD.Web.Pages
 
             for (var date = startDate; date <= endDate; date = date.AddDays(1))
             {
-                var count = _eMDDbContext.Emds.Count(e => e.DateCreated.Date == date);
+                var count = _eMDDbContext.Employees.Count(e => e.DateCreated.Date == date);
                 employeeCountData.Add(count);
                 dates.Add(date.ToString("yyyy-MM-dd"));
             }
 
-            var departments = _eMDDbContext.Emds
+            var departments = _eMDDbContext.Employees
                 .GroupBy(e => e.Department)
                 .Select(g => new
                 {

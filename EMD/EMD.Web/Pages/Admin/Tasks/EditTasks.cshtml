@@ -32,13 +32,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="selectedEmployeeIds">Assign to Employees</label>
-                    <select multiple class="form-control" id="selectedEmployeeIds" asp-for="TaskViewModel.SelectedEmployeeIds">
+                    <label class="form-label select-label" for="selectedEmployeeIds">Assign to Employees</label>
+                    <select class="select" id="selectedEmployeeIds" asp-for="TaskViewModel.SelectedEmployeeIds" multiple>
                         @if (Model.AvailableEmployees != null)
                         {
                             @foreach (var employee in Model.AvailableEmployees)
                             {
-                                <option value="@employee.Id" selected="@(Model.TaskViewModel.SelectedEmployeeIds.Contains(employee.Id) ? "selected" : null)">@employee.Name</option>
+                                <option value="@employee.Id">@employee.Name</option>
                             }
                         }
                     </select>

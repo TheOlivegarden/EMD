@@ -13,7 +13,7 @@ namespace EMD.Web.Pages.Admin.Employees
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
 
-        public List<Emd> EmdList { get; set; }
+        public List<Employee> EmdList { get; set; }
 
         [TempData]
         public string SuccessMessage { get; set; }

@@ -23,7 +23,7 @@ namespace EMD.Web.Repositories
         }
         public async Task AddTaskAsync(Tasks task, List<Guid> employeeIds)
         {
-            task.Assignees = await _context.Emds.Where(e => employeeIds.Contains(e.Id)).ToListAsync();
+            task.Employees = await _context.Employees.Where(e => employeeIds.Contains(e.Id)).ToListAsync();
             _context.Tasks.Add(task);
             await _context.SaveChangesAsync();
         }
@@ -32,7 +32,7 @@ namespace EMD.Web.Repositories
         public async Task UpdateTaskAsync(Tasks task, List<Guid> employeeIds)
         {
             var existingTask = await _context.Tasks
-                .Include(t => t.Assignees)
+                .Include(t => t.Employees)
                 .FirstOrDefaultAsync(t => t.Id == task.Id);
 
             if (existingTask != null)
@@ -42,13 +42,13 @@ namespace EMD.Web.Repositories
                 existingTask.Deadline = task.Deadline;
                 existingTask.IsCompleted = task.IsCompleted;
 
-                existingTask.Assignees.Clear();
+                existingTask.Employees.Clear();
                 if (employeeIds != null)
                 {
-                    var employees = await _context.Emds.Where(e => employeeIds.Contains(e.Id)).ToListAsync();
+                    var employees = await _context.Employees.Where(e => employeeIds.Contains(e.Id)).ToListAsync();
                     foreach (var employee in employees)
                     {
-                        existingTask.Assignees.Add(employee);
+                        existingTask.Employees.Add(employee);
                     }
                 }
 

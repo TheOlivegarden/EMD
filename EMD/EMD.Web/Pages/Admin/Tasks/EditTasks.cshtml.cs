@@ -20,7 +20,7 @@ namespace EMD.Web.Pages.Admin.Tasks
         [BindProperty]
         public TasksViewModel TaskViewModel { get; set; } = new TasksViewModel();
 
-        public List<Emd> AvailableEmployees { get; set; }
+        public List<Employee> AvailableEmployees { get; set; }
 
         public async Task<IActionResult> OnGet(Guid id)
         {
@@ -39,9 +39,9 @@ namespace EMD.Web.Pages.Admin.Tasks
 
             AvailableEmployees = (await _employeeRepository.GetAllAsync()).ToList();
 
-            if (task.Assignees != null)
+            if (task.Employees != null)
             {
-                TaskViewModel.SelectedEmployeeIds = task.Assignees.Select(e => e.Id).ToList();
+                TaskViewModel.SelectedEmployeeIds = task.Employees.Select(e => e.Id).ToList();
             }
             else
             {

@@ -26,7 +26,7 @@ namespace EMD.Web.Pages.Admin.Employees
 
         public async Task<IActionResult> OnPost()
         {
-            var employee = new Emd()
+            var employee = new Employee()
             {
                 Name = AddEmployeeRequest.Name,
                 Surname = AddEmployeeRequest.Surname,

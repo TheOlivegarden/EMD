@@ -10,7 +10,7 @@ namespace EMD.Web.Pages.Admin.Employees
         private readonly IEmployeeRepository _employeeRepository;
 
         [BindProperty]
-        public Emd Employee { get; set; }
+        public Employee Employee { get; set; }
 
         [TempData]
         public string SuccessMessage { get; set; }

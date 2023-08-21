@@ -8,7 +8,15 @@ namespace EMD.Web.Data
         public EMDDbContext(DbContextOptions<EMDDbContext> options) : base(options)
         {
         }
-        public DbSet<Emd> Emds { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Employee>()
+            .HasMany(e => e.Tasks)
+            .WithMany(e => e.Employees);
+        }
+
+        public DbSet<Employee> Employees { get; set; }
 
         public DbSet<Tasks> Tasks { get; set; }
     }

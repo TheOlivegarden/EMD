@@ -20,7 +20,7 @@ namespace EMD.Web.Pages.Admin.Tasks
         [BindProperty]
         public TasksViewModel TaskViewModel { get; set; } = new TasksViewModel();
 
-        public List<Emd> AvailableEmployees { get; set; }
+        public List<Employee> AvailableEmployees { get; set; }
 
         public async Task OnGetAsync()
         {

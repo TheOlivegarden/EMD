@@ -20,9 +20,7 @@
             <label for="deadline">Deadline</label>
             <input type="date" class="form-control" id="deadline" name="TaskViewModel.Deadline" required>
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Add Task</button>
-        </div>
+
         <div class="form-group">
             <label for="assignedEmployees">Assign to Employees</label>
             <select asp-for="TaskViewModel.SelectedEmployeeIds" class="form-control" multiple>
@@ -31,6 +29,9 @@
                     <option value="@employee.Id">@employee.Name</option>
                 }
             </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Add Task</button>
         </div>
     </form>
 </div>

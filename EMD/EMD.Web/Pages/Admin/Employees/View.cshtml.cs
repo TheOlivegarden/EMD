@@ -10,7 +10,7 @@ namespace EMD.Web.Pages.Admin.Employees
     {
         private readonly IEmployeeRepository _employeeRepository;
 
-        public Emd Employee { get; set; }
+        public Employee Employee { get; set; }
 
         public ViewModel(IEmployeeRepository employeeRepository)
         {

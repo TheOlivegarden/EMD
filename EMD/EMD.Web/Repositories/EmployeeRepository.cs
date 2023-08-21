@@ -13,9 +13,9 @@ namespace EMD.Web.Repositories
             _eMDDbContext = eMDDbContext;
         }
 
-        public async Task<Emd> AddAsync(Emd employee)
+        public async Task<Employee> AddAsync(Employee employee)
         {
-            await _eMDDbContext.Emds.AddAsync(employee);
+            await _eMDDbContext.Employees.AddAsync(employee);
             await _eMDDbContext.SaveChangesAsync();
 
             return employee;
@@ -23,11 +23,11 @@ namespace EMD.Web.Repositories
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var existingEmployee = await _eMDDbContext.Emds.FindAsync(id);
+            var existingEmployee = await _eMDDbContext.Employees.FindAsync(id);
 
             if (existingEmployee != null)
             {
-                _eMDDbContext.Emds.Remove(existingEmployee);
+                _eMDDbContext.Employees.Remove(existingEmployee);
                 await _eMDDbContext.SaveChangesAsync();
                 return true;
             }
@@ -35,19 +35,19 @@ namespace EMD.Web.Repositories
             return false;
         }
 
-        public async Task<IEnumerable<Emd>> GetAllAsync()
+        public async Task<IEnumerable<Employee>> GetAllAsync()
         {
-            return await _eMDDbContext.Emds.ToListAsync();
+            return await _eMDDbContext.Employees.ToListAsync();
         }
 
-        public async Task<Emd> GetAsync(Guid id)
+        public async Task<Employee> GetAsync(Guid id)
         {
-            return await _eMDDbContext.Emds.FindAsync(id);
+            return await _eMDDbContext.Employees.FindAsync(id);
         }
 
-        public async Task<Emd> UpdateAsync(Emd employee)
+        public async Task<Employee> UpdateAsync(Employee employee)
         {
-            var existingEmployee = await _eMDDbContext.Emds.FindAsync(employee.Id);
+            var existingEmployee = await _eMDDbContext.Employees.FindAsync(employee.Id);
 
             if (existingEmployee != null)
             {
@@ -66,9 +66,9 @@ namespace EMD.Web.Repositories
             return existingEmployee;
         }
 
-        public async Task<IEnumerable<Emd>> SearchAsync(string searchTerm)
+        public async Task<IEnumerable<Employee>> SearchAsync(string searchTerm)
         {
-            return await _eMDDbContext.Emds
+            return await _eMDDbContext.Employees
                 .Where(e => e.Name.Contains(searchTerm) ||
                             e.Email.Contains(searchTerm) ||
                             e.Department.Contains(searchTerm) ||
