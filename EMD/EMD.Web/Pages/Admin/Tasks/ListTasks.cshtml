@@ -1,46 +1,67 @@
 ﻿@page
+@using Microsoft.AspNetCore.Identity;
 @model EMD.Web.Pages.Admin.Tasks.ListTasksModel
+@inject SignInManager<IdentityUser> signInManager
 @{
     ViewData["Title"] = "List Tasks";
 }
 
-<div class="container">
-    <h2 class="mt-4 mb-3">Task List</h2>
+@if (signInManager.IsSignedIn(User))
+{
+    <div class="container">
+        <h2 class="mt-4 mb-3">Task List</h2>
 
-    @if (Model.TaskList != null && Model.TaskList.Any())
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Deadline</th>
-                    <th>Completed</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var task in Model.TaskList)
-                {
+        @if (Model.TaskList != null && Model.TaskList.Any())
+        {
+            <table class="table">
+                <thead>
                     <tr>
-                        <td><a href="@Url.Page("/Admin/Tasks/ViewTasks", new { id = task.Id })">@task.Title</a></td>
-                        <td>@task.Description</td>
-                        <td>@task.Deadline.ToString("yyyy-MM-dd")</td>
-                        <td>@(task.IsCompleted ? "Yes" : "No")</td>
-                        <td><a href="@Url.Page("/Admin/Tasks/EditTasks", new { id = task.Id })">Edit</a></td>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Deadline</th>
+                        <th>Completed</th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <p>No tasks found!</p>
-    }
+                </thead>
+                <tbody>
+                    @foreach (var task in Model.TaskList)
+                    {
+                        <tr>
+                            <td><a href="@Url.Page("/Admin/Tasks/ViewTasks", new { id = task.Id })">@task.Title</a></td>
+                            <td>@task.Description</td>
+                            <td>@task.Deadline.ToString("yyyy-MM-dd")</td>
+                            <td>@(task.IsCompleted ? "Yes" : "No")</td>
+                            <td><a href="@Url.Page("/Admin/Tasks/EditTasks", new { id = task.Id })">Edit</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No tasks found!</p>
+        }
 
-    <div class="text-center mt-3">
-        <a href="/Admin/Tasks/AddTasks" class="btn btn-primary">Add Task</a>
-        <a href="/Index" class="btn btn-primary">Back to Home Page</a>
+        <div class="text-center mt-3">
+            <a href="/Admin/Tasks/AddTasks" class="btn btn-primary">Add Task</a>
+            <a href="/Index" class="btn btn-primary">Back to Home Page</a>
 
+        </div>
     </div>
-</div>
+}
+else
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Log in to view the dashboard</h5>
+                        <p>You need to log in to access the dashboard.</p>
+                        <a class="btn btn-primary" href="/Login">Log In</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

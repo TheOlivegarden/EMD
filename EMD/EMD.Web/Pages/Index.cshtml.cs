@@ -16,6 +16,12 @@ namespace EMD.Web.Pages
         {
             _eMDDbContext = context;
         }
+        public int TaskCount { get; set; }
+
+        public void OnGet()
+        {
+            TaskCount = _eMDDbContext.Tasks.Select(task => task.Id).Distinct().Count();
+        }
 
         public JsonResult OnGetEmployeeData()
         {

@@ -40,11 +40,17 @@ namespace EMD.Web.Pages.Admin.Tasks
                     IsCompleted = false
                 };
 
+                if (TaskViewModel.Deadline > DateTime.Now.AddYears(1) || TaskViewModel.Deadline < DateTime.Now)
+                {
+                    TempData["InvalidDate"] = "Invalid Due Date.";
+                    return Page();
+                }
+
                 List<Guid> employeeIds = TaskViewModel.SelectedEmployeeIds;
 
                 await _taskRepository.AddTaskAsync(task, employeeIds);
 
-                return RedirectToPage();
+                return RedirectToPage("/Admin/Tasks/ListTasks");
             }
 
             AvailableEmployees = (await _employeeRepository.GetAllAsync()).ToList();

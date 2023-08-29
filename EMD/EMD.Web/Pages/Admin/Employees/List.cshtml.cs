@@ -30,7 +30,6 @@ namespace EMD.Web.Pages.Admin.Employees
             _employeeRepository = employeeRepository;
         }
 
-
         public async Task<IActionResult> OnGet()
         {
             if (!string.IsNullOrEmpty(SearchTerm))

@@ -1,80 +1,101 @@
 ﻿@page "{id:guid}"
+@using Microsoft.AspNetCore.Identity;
 @model EMD.Web.Pages.Admin.Employees.EditModel
+@inject SignInManager<IdentityUser> signInManager
 @{
 }
 
-@if (Model.Employee != null)
+@if (signInManager.IsSignedIn(User))
 {
-    <div class="container">
-        <h2 class="mt-4 mb-3">Edit Employee Details</h2>
+    @if (Model.Employee != null)
+    {
+        <div class="container">
+            <h2 class="mt-4 mb-3">Edit Employee Details</h2>
 
-        <div class="card">
-            <div class="card-body">
-                <form method="post">
-                    <div>
-                        <label for="id" class="form-label">Id</label>
-                        <input type="text" class="form-control" id="id" asp-for="Employee.Id" readonly />
-                    </div>
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        <div>
+                            <label for="id" class="form-label">Id</label>
+                            <input type="text" class="form-control" id="id" asp-for="Employee.Id" readonly />
+                        </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="Name" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="Name" asp-for="Employee.Name">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="Surname" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="Surname" asp-for="Employee.Surname">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Email" class="form-label">Email</label>
-                        <input type="text" class="form-control" id="Email" asp-for="Employee.Email">
-                    </div>
-                    <div class="form-group">
-                        <label for="Phone" class="form-label">Phone</label>
-                        <input type="text" class="form-control" id="Phone" asp-for="Employee.Phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="Address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="Address" asp-for="Employee.Address">
-                    </div>
-                    <div class="form-group">
-                        <label for="Department" class="form-label">Department</label>
-                        <select class="form-control" id="Department" asp-for="Employee.Department">
-                            <option value="">Select department</option>
-                            <option value="Sales">Sales</option>
-                            <option value="Marketing">Marketing</option>
-                            <option value="Finance">Finance</option>
-                            <option value="HR">Human Resources</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="BirthDate" class="form-label">Birth Date</label>
-                        <input type="date" class="form-control" id="BirthDate" asp-for="Employee.BirthDate">
-                    </div>
-                    <div class="form-group">
-                        <label for="Description" class="form-label">Description</label>
-                        <textarea class="form-control" id="Description" rows="3" asp-for="Employee.Description"></textarea>
-                    </div>
-                    <div class="mb-3 d-flex justify-content-between">
-                        <button type="submit" class="btn btn-primary mt-3" asp-page-handler="Update">Save Changes</button>
-                        <button type="submit" class="btn btn-danger mt-3" asp-page-handler="Delete">Delete</button>
-                    </div>
-                </form>
-                @if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
-                {
-                    <div class="toast-container position-fixed top-0 end-0 p-3">
-                        <div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                            <div class="d-flex">
-                                <div class="toast-body">
-                                    <i class="bi bi-x-circle-fill me-2"></i>
-                                    @TempData["ErrorMessage"]
-                                </div>
-                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="Name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="Name" asp-for="Employee.Name">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="Surname" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="Surname" asp-for="Employee.Surname">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="Email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="Email" asp-for="Employee.Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="Phone" class="form-label">Phone</label>
+                            <input type="text" class="form-control" id="Phone" asp-for="Employee.Phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="Address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="Address" asp-for="Employee.Address">
+                        </div>
+                        <div class="form-group">
+                            <label for="Department" class="form-label">Department</label>
+                            <select class="form-control" id="Department" asp-for="Employee.Department">
+                                <option value="">Select department</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Finance">Finance</option>
+                                <option value="HR">Human Resources</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="BirthDate" class="form-label">Birth Date</label>
+                            <input type="date" class="form-control" id="BirthDate" asp-for="Employee.BirthDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="Description" class="form-label">Description</label>
+                            <textarea class="form-control" id="Description" rows="3" asp-for="Employee.Description"></textarea>
+                        </div>
+                        <div class="mb-3 d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary mt-3" asp-page-handler="Update">Save Changes</button>
+                            <button type="submit" class="btn btn-danger mt-3" asp-page-handler="Delete">Delete</button>
+                        </div>
+                    </form>
+                    @if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+                    {
+                        <div class="toast-container position-fixed top-0 end-0 p-3">
+                            <div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="d-flex">
+                                    <div class="toast-body">
+                                        <i class="bi bi-x-circle-fill me-2"></i>
+                                        @TempData["ErrorMessage"]
+                                    </div>
+                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Log in to view the dashboard</h5>
+                        <p>You need to log in to access the dashboard.</p>
+                        <a class="btn btn-primary" href="/Login">Log In</a>
                     </div>
-                }
+                </div>
             </div>
         </div>
     </div>

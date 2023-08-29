@@ -1,41 +1,63 @@
 ﻿@page "{id:guid}"
+@using Microsoft.AspNetCore.Identity;
 @model EMD.Web.Pages.Admin.Employees.ViewModel
+@inject SignInManager<IdentityUser> signInManager
+
 @{
 }
 
-<div class="container">
-    <h2 class="mt-4 mb-3">View Employee Details</h2>
+@if (signInManager.IsSignedIn(User))
+{
+    <div class="container">
+        <h2 class="mt-4 mb-3">View Employee Details</h2>
 
-    <div class="card">
-        <div class="card-body">
-            <dl class="row">
-                <dt class="col-sm-3">Id</dt>
-                <dd class="col-sm-9">@Model.Employee.Id</dd>
+        <div class="card">
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">Id</dt>
+                    <dd class="col-sm-9">@Model.Employee.Id</dd>
 
-                <dt class="col-sm-3">First Name</dt>
-                <dd class="col-sm-9">@Model.Employee.Name</dd>
+                    <dt class="col-sm-3">First Name</dt>
+                    <dd class="col-sm-9">@Model.Employee.Name</dd>
 
-                <dt class="col-sm-3">Last Name</dt>
-                <dd class="col-sm-9">@Model.Employee.Surname</dd>
+                    <dt class="col-sm-3">Last Name</dt>
+                    <dd class="col-sm-9">@Model.Employee.Surname</dd>
 
-                <dt class="col-sm-3">Email</dt>
-                <dd class="col-sm-9">@Model.Employee.Email</dd>
+                    <dt class="col-sm-3">Email</dt>
+                    <dd class="col-sm-9">@Model.Employee.Email</dd>
 
-                <dt class="col-sm-3">Phone</dt>
-                <dd class="col-sm-9">@Model.Employee.Phone</dd>
+                    <dt class="col-sm-3">Phone</dt>
+                    <dd class="col-sm-9">@Model.Employee.Phone</dd>
 
-                <dt class="col-sm-3">Address</dt>
-                <dd class="col-sm-9">@Model.Employee.Address</dd>
+                    <dt class="col-sm-3">Address</dt>
+                    <dd class="col-sm-9">@Model.Employee.Address</dd>
 
-                <dt class="col-sm-3">Department</dt>
-                <dd class="col-sm-9">@Model.Employee.Department</dd>
+                    <dt class="col-sm-3">Department</dt>
+                    <dd class="col-sm-9">@Model.Employee.Department</dd>
 
-                <dt class="col-sm-3">Birth Date</dt>
-                <dd class="col-sm-9">@Model.Employee.BirthDate.ToShortDateString()</dd>
+                    <dt class="col-sm-3">Birth Date</dt>
+                    <dd class="col-sm-9">@Model.Employee.BirthDate.ToShortDateString()</dd>
 
-                <dt class="col-sm-3">Description</dt>
-                <dd class="col-sm-9">@Model.Employee.Description</dd>
-            </dl>
+                    <dt class="col-sm-3">Description</dt>
+                    <dd class="col-sm-9">@Model.Employee.Description</dd>
+                </dl>
+            </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Log in to view the dashboard</h5>
+                        <p>You need to log in to access the dashboard.</p>
+                        <a class="btn btn-primary" href="/Login">Log In</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

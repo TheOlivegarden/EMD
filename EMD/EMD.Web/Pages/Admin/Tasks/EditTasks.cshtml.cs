@@ -53,6 +53,12 @@ namespace EMD.Web.Pages.Admin.Tasks
 
         public async Task<IActionResult> OnPostUpdate()
         {
+            if (TaskViewModel.Deadline > DateTime.Now.AddYears(1) || TaskViewModel.Deadline < DateTime.Now)
+            {
+                TempData["ErrorMessage"] = "Invalid Due Date.";
+                return Page();
+            }
+
             if (!ModelState.IsValid)
             {
                 TempData["ErrorMessage"] = "Invalid input data.";

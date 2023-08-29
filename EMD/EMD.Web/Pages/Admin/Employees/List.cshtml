@@ -1,77 +1,98 @@
 ﻿@page
+@using Microsoft.AspNetCore.Identity;
 @model EMD.Web.Pages.Admin.Employees.ListModel
+@inject SignInManager<IdentityUser> signInManager
 @{
 }
 
-<div class="container">
-    <h2 class="mt-4 mb-3">Employee List</h2>
+@if (signInManager.IsSignedIn(User))
+{
+    <div class="container">
+        <h2 class="mt-4 mb-3">Employee List</h2>
 
-    <form method="get" class="mb-3">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search by name, email, or department" name="SearchTerm" value="@Model.SearchTerm" />
-            <button type="submit" class="btn btn-primary">Search</button>
-        </div>
-    </form>
+        <form method="get" class="mb-3">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search by name, email, or department" name="SearchTerm" value="@Model.SearchTerm" />
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
 
-    @if (Model.ShowNotification)
-    {
-        <div id="notificationContainer" class="position-fixed top-0 end-0 p-3">
-            @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
-            {
-                <div class="toast bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
-                    <div class="toast-body">
-                        @TempData["SuccessMessage"]
-                    </div>
-                </div>
-            }
-
-            @if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
-            {
-                <div class="toast bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
-                    <div class="toast-body">
-                        @TempData["ErrorMessage"]
-                    </div>
-                </div>
-            }
-        </div>
-    }
-
-    @if (Model.EmdList != null && Model.EmdList.Any())
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Birth Date</th>
-                    <th>Department</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var employee in Model.EmdList)
+        @if (Model.ShowNotification)
+        {
+            <div id="notificationContainer" class="position-fixed top-0 end-0 p-3">
+                @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
                 {
-                    <tr>
-                        <td><a href="/Admin/Employees/View/@employee.Id">@employee.Name @employee.Surname</a></td>
-                        <td>@employee.Email</td>
-                        <td>@employee.BirthDate.ToShortDateString()</td>
-                        <td>@employee.Department</td>
-                        <td><a href="/Admin/Employees/Edit/@employee.Id">Edit</a></td>
-                    </tr>
+                    <div class="toast bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+                        <div class="toast-body">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    </div>
                 }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <p>No employees found!</p>
-    }
-    <div class="text-center mt-3">
-        <a href="/index" class="btn btn-primary">Back to Home</a>
+
+                @if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+                {
+                    <div class="toast bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+                        <div class="toast-body">
+                            @TempData["ErrorMessage"]
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        @if (Model.EmdList != null && Model.EmdList.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Birth Date</th>
+                        <th>Department</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var employee in Model.EmdList)
+                    {
+                        <tr>
+                            <td><a href="/Admin/Employees/View/@employee.Id">@employee.Name @employee.Surname</a></td>
+                            <td>@employee.Email</td>
+                            <td>@employee.BirthDate.ToShortDateString()</td>
+                            <td>@employee.Department</td>
+                            <td><a href="/Admin/Employees/Edit/@employee.Id">Edit</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No employees found!</p>
+        }
+        <div class="text-center mt-3">
+            <a href="/index" class="btn btn-primary">Back to Home</a>
+        </div>
+        <div class="text-center mt-3">
+            <a href="/Admin/Employees/Add" class="btn btn-primary">Add Employee</a>
+        </div>
     </div>
-    <div class="text-center mt-3">
-        <a href="/Admin/Employees/Add" class="btn btn-primary">Add Employee</a>
+
+    <script src="/js/toast-notifs.js"></script>
+}
+else
+{
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Log in to view the dashboard</h5>
+                    <p>You need to log in to access the dashboard.</p>
+                    <a class="btn btn-primary" href="/Login">Log In</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<script src="/js/toast-notifs.js"></script>
+}

@@ -6,63 +6,65 @@
     ViewData["Title"] = "Settings";
 }
 
-<h1 class="text-center mt-4">Settings</h1>
+@if (signInManager.IsSignedIn(User))
+{
+    <h1 class="text-center mt-4">Settings</h1>
 
-<div class="card w-50 mx-auto mt-5">
-    <div class="card-body">
-        <h2 class="card-title">Edit Account Information</h2>
+    <div class="card w-50 mx-auto mt-5">
+        <div class="card-body">
+            <h2 class="card-title">Edit Account Information</h2>
 
-        <form method="post" id="editUsernameForm" asp-page-handler="EditUsername">
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" value="@Model.Username" required>
-            </div>
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Save Username</button>
-            </div>
-        </form>
-
-        <form method="post" id="editEmailForm" asp-page-handler="EditEmail">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="@Model.Email" required>
-            </div>
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Save Email</button>
-            </div>
-        </form>
-
-        <form method="post" id="changePasswordForm" asp-page-handler="ChangePassword">
-            <div class="mb-3">
-                <label for="password" class="form-label">New Password</label>
-                <div class="input-group">
-                    <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelp" required>
-                    <button type="button" class="btn btn-outline-secondary" id="revealPasswordBtn">Show</button>
+            <form method="post" id="editUsernameForm" asp-page-handler="EditUsername">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="@Model.Username" required>
                 </div>
-            </div>
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Change Password</button>
-            </div>
-        </form>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Save Username</button>
+                </div>
+            </form>
+
+            <form method="post" id="editEmailForm" asp-page-handler="EditEmail">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="@Model.Email" required>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Save Email</button>
+                </div>
+            </form>
+
+            <form method="post" id="changePasswordForm" asp-page-handler="ChangePassword">
+                <div class="mb-3">
+                    <label for="password" class="form-label">New Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelp" required>
+                        <button type="button" class="btn btn-outline-secondary" id="revealPasswordBtn">Show</button>
+                    </div>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Change Password</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
 
-<div class="card w-50 mx-auto mt-5">
-    <div class="card-body">
-        <form method="post" id="deleteForm" asp-page-handler="DeleteAccount">
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-danger">Delete Account</button>
-            </div>
-        </form>
+    <div class="card w-50 mx-auto mt-5">
+        <div class="card-body">
+            <form method="post" id="deleteForm" asp-page-handler="DeleteAccount">
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-danger">Delete Account</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div class="text-center mt-3">
-    <a href="/index" class="btn btn-primary">Back to Home</a>
-</div>
+    <div class="text-center mt-3">
+        <a href="/index" class="btn btn-primary">Back to Home</a>
+    </div>
 
-@section Scripts {
+    @section Scripts {
     <script>
         $(document).ready(function () {
             $('#deleteForm').submit(function () {
@@ -80,6 +82,23 @@
                     $(this).text('Show');
                 }
             });
-        });
+        }); 
     </script>
+}
+}
+else
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Log in to view the dashboard</h5>
+                        <p>You need to log in to access the dashboard.</p>
+                        <a class="btn btn-primary" href="/Login">Log In</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }

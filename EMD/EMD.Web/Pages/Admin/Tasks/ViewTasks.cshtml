@@ -1,29 +1,54 @@
 ﻿@page "/Admin/Tasks/View/{id}"
+@using Microsoft.AspNetCore.Identity;
 @model EMD.Web.Pages.Admin.Tasks.ViewTasksModel
+@inject SignInManager<IdentityUser> signInManager
 @{
     ViewData["Title"] = "View Task";
 }
 
-<div class="container">
-    <h1>View Task</h1>
+@if (signInManager.IsSignedIn(User))
+{
+    <div class="container">
+        <h1>View Task</h1>
 
-    <div class="form-group">
-        <label>Title:</label>
-        <div>@Model.TaskViewModel.Title</div>
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <div>@Model.TaskViewModel.Title</div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <div>@Model.TaskViewModel.Description</div>
+                </div>
+                <div class="form-group">
+                    <label for="deadline">Deadline:</label>
+                    <div>@Model.TaskViewModel.Deadline.ToString("yyyy-MM-dd")</div>
+                </div>
+                <div class="form-group">
+                    <label for="completed">Completed:</label>
+                    <div>@(Model.TaskViewModel.IsCompleted ? "Yes" : "No")</div>
+                </div>
+                <div class="form-group">
+                    <a asp-page="/Admin/Tasks/ListTasks" class="btn btn-primary">Back to List</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label>Description:</label>
-        <div>@Model.TaskViewModel.Description</div>
+}
+else
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Log in to view the dashboard</h5>
+                        <p>You need to log in to access the dashboard.</p>
+                        <a class="btn btn-primary" href="/Login">Log In</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label>Deadline:</label>
-        <div>@Model.TaskViewModel.Deadline.ToString("yyyy-MM-dd")</div>
-    </div>
-    <div class="form-group">
-        <label>Completed:</label>
-        <div>@(Model.TaskViewModel.IsCompleted ? "Yes" : "No")</div>
-    </div>
-    <div class="form-group">
-        <a asp-page="/Admin/Tasks/ListTasks" class="btn btn-primary">Back to List</a>
-    </div>
-</div>
+}

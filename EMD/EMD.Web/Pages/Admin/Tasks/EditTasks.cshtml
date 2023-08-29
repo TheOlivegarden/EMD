@@ -1,69 +1,91 @@
 ﻿@page "{id:guid}"
+@using Microsoft.AspNetCore.Identity;
 @model EMD.Web.Pages.Admin.Tasks.EditTasksModel
+@inject SignInManager<IdentityUser> signInManager
+
 @{
     ViewData["Title"] = "Edit Task";
 }
 
-<div class="container mt-4">
-    <div class="card">
-        <div class="card-body">
-            <h2>Edit Task</h2>
+@if (signInManager.IsSignedIn(User))
+{
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h2>Edit Task</h2>
 
-            <form method="post">
-                @Html.HiddenFor(m => m.TaskViewModel.Id)
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" asp-for="TaskViewModel.Title" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" id="description" asp-for="TaskViewModel.Description" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="deadline">Deadline</label>
-                    <input type="date" class="form-control" id="deadline" asp-for="TaskViewModel.Deadline" required>
-                </div>
-
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="isCompleted" asp-for="TaskViewModel.IsCompleted">
-                    <label class="form-check-label" for="isCompleted">Completed</label>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label select-label" for="selectedEmployeeIds">Assign to Employees</label>
-                    <select class="select" id="selectedEmployeeIds" asp-for="TaskViewModel.SelectedEmployeeIds" multiple>
-                        @if (Model.AvailableEmployees != null)
-                        {
-                            @foreach (var employee in Model.AvailableEmployees)
-                            {
-                                <option value="@employee.Id">@employee.Name</option>
-                            }
-                        }
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary" asp-page-handler="Update">Update Task</button>
-                    <button type="submit" class="btn btn-danger" asp-page-handler="Delete">Delete Task</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    @if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
-    {
-        <div class="toast-container position-fixed top-0 end-0 p-3">
-            <div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        <i class="bi bi-x-circle-fill me-2"></i>
-                        @TempData["ErrorMessage"]
+                <form method="post">
+                    @Html.HiddenFor(m => m.TaskViewModel.Id)
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" asp-for="TaskViewModel.Title" required>
                     </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" asp-for="TaskViewModel.Description" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deadline">Deadline</label>
+                        <input type="date" class="form-control" id="deadline" asp-for="TaskViewModel.Deadline" required>
+                    </div>
+
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="isCompleted" asp-for="TaskViewModel.IsCompleted">
+                        <label class="form-check-label" for="isCompleted">Completed</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label select-label" for="selectedEmployeeIds">Assign to Employees</label>
+                        <select class="select" id="selectedEmployeeIds" asp-for="TaskViewModel.SelectedEmployeeIds" multiple>
+                            @if (Model.AvailableEmployees != null)
+                            {
+                                @foreach (var employee in Model.AvailableEmployees)
+                                {
+                                    <option value="@employee.Id">@employee.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" asp-page-handler="Update">Update Task</button>
+                        <button type="submit" class="btn btn-danger" asp-page-handler="Delete">Delete Task</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+        {
+            <div class="toast-container position-fixed top-0 end-0 p-3">
+                <div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            <i class="bi bi-x-circle-fill me-2"></i>
+                            @TempData["ErrorMessage"]
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Log in to view the dashboard</h5>
+                        <p>You need to log in to access the dashboard.</p>
+                        <a class="btn btn-primary" href="/Login">Log In</a>
+                    </div>
                 </div>
             </div>
         </div>
-    }
-</div>
+    </div>
+}

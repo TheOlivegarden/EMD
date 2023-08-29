@@ -97,6 +97,9 @@
                         <button id="lineChartButton" class="btn btn-primary">Show Employee Number</button>
                         <button id="pieChartButton" class="btn btn-primary">Show Departments</button>
                     </div>
+                    <div class="task-count">
+                        <h3>Total Number of Tasks: @Model.TaskCount</h3>
+                    </div>
                     <canvas class="mb-5" id="myChart" max-height="400px"></canvas>
                     <canvas class="mb-3 mt-3" id="pieChart" max-height="400px"></canvas>
                 </div>
@@ -153,7 +156,7 @@ else
                     color.push("rgba(255, 99, 132, 0.2)");
                 }
 
-                lineChartData = { // Store the line chart data
+                lineChartData = {
                     labels: labels,
                     datasets: [{
                         label: 'Number of Employees',
@@ -173,7 +176,7 @@ else
                     'rgb(82, 199, 82)'
                 ];
 
-                pieChartData = { // Store the pie chart data
+                pieChartData = {
                     labels: pieLabels,
                     datasets: [{
                         data: pieData,
