@@ -1,10 +1,13 @@
 ﻿body {
+    background: linear-gradient(135deg, #001f3f 0%, #7FDBFF 100%);
     font-family: Arial, sans-serif;
+    color: #fff;
 }
 
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
+    color: #fff;
 }
 
 .navbar {
@@ -15,19 +18,20 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 1rem;
-    background-color: #343a40;
+    background-color: #3498db;
+    color: #fff;
 }
 
 .navbar-button {
     background-color: transparent;
-    color: #ffffff;
+    color: #fff;
     padding: 0.5rem 1rem;
 }
 
     .navbar-button:hover,
     .navbar-button:focus {
         background-color: rgba(255, 255, 255, 0.1);
-        color: #ffffff;
+        color: #fff;
     }
 
 .sidebar {
@@ -35,7 +39,7 @@
     position: sticky;
     top: 0;
     padding: 1rem;
-    background-color: #343a40;
+    background-color: #3498db;
     color: #fff;
     overflow-y: auto;
     width: 240px;
@@ -45,11 +49,12 @@
 
 .sidebar-sticky {
     padding-top: 2rem;
+    color: #fff;
 }
 
 .sidebar-link {
     color: #fff;
-    margin-bottom: 0.5rem;
+    padding: 0.5rem 1rem;
 }
 
     .sidebar-link:hover {
@@ -85,16 +90,16 @@
 }
 
 .btn-primary {
-    background: linear-gradient(45deg, #ff9f4d, #ff6b3b);
-    border-color: #ff6b3b;
-    color: #ffffff;
+    background-color: #2980b9;
+    border-color: #2980b9;
+    color: #fff;
 }
 
     .btn-primary:hover,
     .btn-primary:focus {
-        background: linear-gradient(45deg, #ff9f4d, #ff6b3b);
-        border-color: #ff6b3b;
-        color: #ffffff;
+        background: linear-gradient(135deg, #4ca1af 0%, #c4e0e5 100%);
+        border-color: #2980b9;
+        color: #fff;
     }
 
 .btn-close-white {
@@ -132,56 +137,3 @@
     font-size: 0.875rem;
     font-weight: bold;
 }
-
-.dark-theme {
-    background-color: #1a1a1a;
-    color: #ffffff;
-}
-
-    .dark-theme .card {
-        background-color: #333333;
-        border-color: #ffffff;
-        color: #ffffff;
-    }
-
-    .dark-theme .btn-primary {
-        background-color: #00a2ff;
-        border-color: #00a2ff;
-        color: #ffffff;
-    }
-
-        .dark-theme .btn-primary:hover {
-            background-color: #008ee0;
-            border-color: #008ee0;
-        }
-
-    .dark-theme .form-control {
-        background-color: #333333;
-        border-color: #ffffff;
-        color: #ffffff;
-    }
-
-    .dark-theme .input-group-text {
-        background-color: #333333;
-        border-color: #ffffff;
-        color: #ffffff;
-    }
-
-    .dark-theme #themeSwitchBtn {
-        background-color: #00a2ff;
-        border-color: #00a2ff;
-        color: #ffffff;
-    }
-
-        .dark-theme #themeSwitchBtn:hover {
-            background-color: #008ee0;
-            border-color: #008ee0;
-        }
-
-    .dark-theme a {
-        color: #00a2ff;
-    }
-
-        .dark-theme a:hover {
-            color: #008ee0;
-        }

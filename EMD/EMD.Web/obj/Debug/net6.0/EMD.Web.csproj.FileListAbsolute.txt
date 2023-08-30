@@ -91,5 +91,4 @@ C:\Users\PC\Desktop\EMD\EMD\EMD.Web\bin\Debug\net6.0\Microsoft.AspNetCore.Identi
 C:\Users\PC\Desktop\EMD\EMD\EMD.Web\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\PC\Desktop\EMD\EMD\EMD.Web\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\PC\Desktop\EMD\EMD\EMD.Web\bin\Debug\net6.0\Microsoft.Toolkit.Uwp.Notifications.dll
-C:\Users\PC\Desktop\EMD\EMD\EMD.Web\bin\Debug\net6.0\libman.json
 C:\Users\PC\Desktop\EMD\EMD\EMD.Web\bin\Debug\net6.0\Newtonsoft.Json.dll

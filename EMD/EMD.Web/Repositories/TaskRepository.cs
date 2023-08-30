@@ -23,8 +23,13 @@ namespace EMD.Web.Repositories
         }
         public async Task AddTaskAsync(Tasks task, List<Guid> employeeIds)
         {
-            task.Employees = await _context.Employees.Where(e => employeeIds.Contains(e.Id)).ToListAsync();
             _context.Tasks.Add(task);
+
+            if (employeeIds != null && employeeIds.Any())
+            {
+                task.Employees = await _context.Employees.Where(e => employeeIds.Contains(e.Id)).ToListAsync();
+            }
+
             await _context.SaveChangesAsync();
         }
 
