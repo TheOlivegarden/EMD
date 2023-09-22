@@ -2,7 +2,6 @@ using EMD.Web.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using EMD.Web.Models.ViewModels;
-using System.Collections.Generic;
 
 namespace EMD.Web.Pages.Admin.Tasks
 {
@@ -14,24 +13,36 @@ namespace EMD.Web.Pages.Admin.Tasks
         {
             _taskRepository = taskRepository;
         }
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; }
 
         public List<TasksViewModel> TaskList { get; set; }
 
         public async Task<IActionResult> OnGet()
         {
-            var tasks = await _taskRepository.GetTasksAsync();
-            TaskList = new List<TasksViewModel>();
-
-            foreach (var task in tasks)
+            if (!string.IsNullOrEmpty(SearchTerm))
             {
-                TaskList.Add(new TasksViewModel
+                var searchedTasks = await _taskRepository.SearchAsync(SearchTerm);
+                TaskList = searchedTasks.Select(task => new TasksViewModel
                 {
                     Id = task.Id,
                     Title = task.Title,
                     Description = task.Description,
                     Deadline = task.Deadline,
                     IsCompleted = task.IsCompleted
-                });
+                }).ToList();
+            }
+            else
+            {
+                var allTasks = await _taskRepository.GetTasksAsync();
+                TaskList = allTasks.Select(task => new TasksViewModel
+                {
+                    Id = task.Id,
+                    Title = task.Title,
+                    Description = task.Description,
+                    Deadline = task.Deadline,
+                    IsCompleted = task.IsCompleted
+                }).ToList();
             }
 
             return Page();

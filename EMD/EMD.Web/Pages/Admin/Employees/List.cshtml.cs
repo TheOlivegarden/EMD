@@ -41,6 +41,11 @@ namespace EMD.Web.Pages.Admin.Employees
                 EmdList = (await _employeeRepository.GetAllAsync())?.ToList();
             }
 
+            foreach (var employee in EmdList)
+            {
+                employee.Tasks = (List<Models.Domain.Tasks>)await _employeeRepository.GetTasksForEmployeeAsync(employee.Id);
+            }
+
             if (!IsPostBack)
             {
                 ShowNotification = !string.IsNullOrEmpty(SuccessMessage) || !string.IsNullOrEmpty(ErrorMessage);

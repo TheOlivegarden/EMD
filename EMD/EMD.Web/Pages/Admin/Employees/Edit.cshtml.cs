@@ -12,12 +12,6 @@ namespace EMD.Web.Pages.Admin.Employees
         [BindProperty]
         public Employee Employee { get; set; }
 
-        [TempData]
-        public string SuccessMessage { get; set; }
-
-        [TempData]
-        public string ErrorMessage { get; set; }
-
         public EditModel(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
@@ -29,11 +23,9 @@ namespace EMD.Web.Pages.Admin.Employees
 
             if (Employee == null)
             {
-                ErrorMessage = "Employee not found.";
+                TempData["ErrorMessage"] = "Employee not found.";
                 return RedirectToPage("/Admin/Employees/List");
             }
-
-            SuccessMessage = null;
 
             return Page();
         }

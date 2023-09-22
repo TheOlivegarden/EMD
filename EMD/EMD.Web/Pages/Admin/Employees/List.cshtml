@@ -61,6 +61,25 @@
                             <td>@employee.BirthDate.ToShortDateString()</td>
                             <td>@employee.Department</td>
                             <td><a href="/Admin/Employees/Edit/@employee.Id">Edit</a></td>
+                            <td>
+                                @if (employee.Tasks != null && employee.Tasks.Any())
+                                {
+                                    var totalTasks = employee.Tasks.Count;
+                                    var completedTasks = employee.Tasks.Count(t => t.IsCompleted);
+                                    var progressPercentage = (completedTasks * 100) / totalTasks;
+
+                                    <div>
+                                        @($"{completedTasks}/{totalTasks}")
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: @progressPercentage%;" aria-valuenow="@progressPercentage" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span>No tasks</span>
+                                }
+                            </td>
                         </tr>
                     }
                 </tbody>

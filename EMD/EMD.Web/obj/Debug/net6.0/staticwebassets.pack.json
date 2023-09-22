@@ -9,10 +9,6 @@
       "PackagePath": "staticwebassets\\Images\\logo.jpg"
     },
     {
-      "Id": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\Images\\logo1.jpg",
-      "PackagePath": "staticwebassets\\Images\\logo1.jpg"
-    },
-    {
       "Id": "C:\\Users\\PC\\Desktop\\EMD\\EMD\\EMD.Web\\wwwroot\\css\\custom.css",
       "PackagePath": "staticwebassets\\css\\custom.css"
     },

@@ -1,5 +1,6 @@
 ﻿using EMD.Web.Data;
 using EMD.Web.Models.Domain;
+using EMD.Web.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace EMD.Web.Repositories
@@ -90,6 +91,13 @@ namespace EMD.Web.Repositories
             await _context.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<IEnumerable<Tasks>> SearchAsync(string searchTerm)
+        {
+            return await _context.Tasks
+                .Where(e => e.Title.Contains(searchTerm))
+                .ToListAsync();
         }
     }
 }

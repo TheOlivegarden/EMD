@@ -10,5 +10,7 @@ namespace EMD.Web.Repositories
         Task<Employee> AddAsync(Employee employee);
         Task<Employee> UpdateAsync(Employee employee);
         Task<bool> DeleteAsync(Guid id);
+        Task<IEnumerable<Tasks>> GetTasksForEmployeeAsync(Guid employeeId);
+
     }
 }

@@ -13,6 +13,16 @@ namespace EMD.Web.Repositories
             _eMDDbContext = eMDDbContext;
         }
 
+        public async Task<IEnumerable<Tasks>> GetTasksForEmployeeAsync(Guid employeeId)
+        {
+            var employee = await _eMDDbContext.Employees
+                .Include(e => e.Tasks)
+                .FirstOrDefaultAsync(e => e.Id == employeeId);
+
+            return employee?.Tasks;
+        }
+
+
         public async Task<Employee> AddAsync(Employee employee)
         {
             await _eMDDbContext.Employees.AddAsync(employee);

@@ -26,7 +26,7 @@
     <nav class="navbar navbar-dark bg-dark navbar-expand-md flex-md-nowrap p-0" style="z-index: 999;">
         <div class="container">
             <a class="navbar-brand logo col-sm-3 col-md-2 mr-0" href="/">
-                <img src="Images/logo1.jpg" width="42" height="42   ">
+                <img src="Images/logo.jpg" width="42" height="42   ">
                 Employee Management Dashboard
             </a>
             <ul class="navbar-nav px-3">
@@ -53,7 +53,7 @@
                     </div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/index">
+                            <a class="nav-link" href="/index">
                                 Dashboard
                             </a>
                         </li>
@@ -86,7 +86,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/Admin/Settings">
+                            <a class="nav-link" href="/Admin/Settings">
                                 Settings
                             </a>
                         </li>
@@ -120,7 +120,7 @@ else
                         <h5 class="card-title">Choose an option</h5>
                         <ul class="nav nav-pills justify-content-center">
                             <li class="nav-item">
-                                <a class="nav-link active" href="/Register">Register</a>
+                                <a class="nav-link" href="/Register">Register</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/Login">Login</a>
@@ -156,16 +156,16 @@ else
                 var labels = response.dates;
                 var color = [];
                 for (var i = 0; i < response.dates.length; i++) {
-                    color.push("rgba(255, 99, 132, 0.2)");
+                    color.push("rgba(255, 255, 255, 1)");
                 }
 
                 lineChartData = {
                     labels: labels,
                     datasets: [{
                         label: 'Number of Employees',
-                        data: data,
+                        data: data, 
                         backgroundColor: color,
-                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderColor: 'rgba(0, 0, 0, 1)',
                         borderWidth: 2
                     }]
                 };
@@ -184,7 +184,7 @@ else
                     datasets: [{
                         data: pieData,
                         backgroundColor: pieColor,
-                        borderColor: 'rgba(255, 255, 255, 1)',
+                        borderColor: 'rgba(0, 0, 0, 1)',
                         borderWidth: 1
                     }]
                 };
@@ -227,7 +227,22 @@ else
                     scales: {
                         y: {
                             beginAtZero: true,
-                            stepSize: 1
+                            stepSize: 1,
+                            ticks: {
+                                color: 'white'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
                         }
                     }
                 }
@@ -245,6 +260,13 @@ else
                     legend: {
                         display: true,
                         position: 'right'
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        }
                     }
                 }
             });

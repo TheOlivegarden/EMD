@@ -11,6 +11,13 @@
     <div class="container">
         <h2 class="mt-4 mb-3">Task List</h2>
 
+        <form method="get" class="mb-3">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search by title, deadline or status." name="SearchTerm" value="@Model.SearchTerm" />
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+
         @if (Model.TaskList != null && Model.TaskList.Any())
         {
             <table class="table">

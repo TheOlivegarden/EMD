@@ -39,7 +39,7 @@ namespace EMD.Web.Pages.Admin.Employees
                 DateCreated = DateTime.Now
             };
 
-            if (employee.BirthDate > DateTime.Now || employee.BirthDate < DateTime.Now.AddYears(-65))
+            if (employee.BirthDate > DateTime.Now.AddYears(-18) || employee.BirthDate < DateTime.Now.AddYears(-65))
             {
                 TempData["InvalidDate"] = "Invalid Date.";
                 return Page();
